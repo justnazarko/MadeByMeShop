@@ -1,5 +1,5 @@
-using MadeByMe.Models;
-using MadeByMe.Services;
+using MadeByMe.src.Models;
+using MadeByMe.src.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

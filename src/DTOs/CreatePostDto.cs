@@ -19,7 +19,7 @@ namespace MadeByMe.src.DTOs
         [Url]
         public string PhotoLink { get; set; }
 
-        public double Rating { get; set; } = 0.0;
+        //public double Rating { get; set; } = 0.0;
 
         [MaxLength(20)]
         public string Status { get; set; }

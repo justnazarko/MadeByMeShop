@@ -4,8 +4,8 @@ namespace MadeByMe.src.DTOs
 {
     public class UpdatePostDto
     {
-        [Required]
-        public int PostId { get; set; }
+        //[Required]
+        //public int PostId { get; set; }
 
         [Required]
         [MaxLength(255)]
