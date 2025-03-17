@@ -1,0 +1,55 @@
+# Системні файли
+bin/
+obj/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vs/
+
+# Налаштування та тимчасові файли
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Production.json
+secrets.json
+.env
+*.log
+*.cache
+
+# Файли компіляції та кешу
+*.dll
+*.pdb
+*.exe
+*.so
+*.dylib
+*.lock.json
+*.nupkg
+*.snupkg
+*.tgz
+
+# Папка налаштувань Visual Studio
+.vs/
+
+# Файли NuGet
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+
+# wwwroot (залишаємо тільки власні файли)
+wwwroot/lib/
+wwwroot/**/*.map
+wwwroot/**/*.gz
+
+# Файли міграцій Entity Framework
+Migrations/
+
+# Лог-файли
+logs/
+*.log
+
+# Файли Docker
+docker-compose.override.yml
+**/Dockerfile
+**/.dockerignore
