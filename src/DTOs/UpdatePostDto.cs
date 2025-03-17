@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MadeByMe.DTOs
+namespace MadeByMe.src.DTOs
 {
-    public class CreatePostDto
+    public class UpdatePostDto
     {
+        [Required]
+        public int PostId { get; set; }
+
         [Required]
         [MaxLength(255)]
         public string Title { get; set; }
@@ -18,8 +21,6 @@ namespace MadeByMe.DTOs
 
         [Url]
         public string PhotoLink { get; set; }
-
-        public double Rating { get; set; } = 0.0;
 
         [MaxLength(20)]
         public string Status { get; set; }

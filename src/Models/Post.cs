@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
-namespace MadeByMe.Models
+namespace MadeByMe.src.Models
 {
     public class Post
     {

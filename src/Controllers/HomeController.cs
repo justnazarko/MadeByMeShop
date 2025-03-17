@@ -2,7 +2,7 @@ using MadeByMe.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace MadeByMe.Controllers
+namespace MadeByMe.src.Controllers
 {
     public class HomeController : Controller
     {

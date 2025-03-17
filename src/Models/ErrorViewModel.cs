@@ -1,4 +1,4 @@
-namespace MadeByMe.Models
+namespace MadeByMe.src.Models
 {
     public class ErrorViewModel
     {

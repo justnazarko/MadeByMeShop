@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace MadeByMe.Models
+namespace MadeByMe.src.Models
 {
     public class ApplicationDbContext : DbContext
     {

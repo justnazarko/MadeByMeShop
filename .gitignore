@@ -38,9 +38,9 @@ project.lock.json
 project.assets.json
 
 # wwwroot (залишаємо тільки власні файли)
-wwwroot/lib/
-wwwroot/**/*.map
-wwwroot/**/*.gz
+src/wwwroot/lib/
+src/wwwroot/**/*.map
+src/wwwroot/**/*.gz
 
 # Файли міграцій Entity Framework
 Migrations/

@@ -1,4 +1,4 @@
-﻿namespace MadeByMe.DTOs
+﻿namespace MadeByMe.src.DTOs
 {
     public class PostDto
     {

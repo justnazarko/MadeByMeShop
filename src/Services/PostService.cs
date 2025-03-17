@@ -1,8 +1,8 @@
-﻿using MadeByMe.Models;
+﻿using MadeByMe.src.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace MadeByMe.Services
+namespace MadeByMe.src.Services
 {
     public class PostService
     {
