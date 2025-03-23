@@ -43,7 +43,7 @@ src/wwwroot/**/*.map
 src/wwwroot/**/*.gz
 
 # Файли міграцій Entity Framework
-Migrations/
+# Migrations/
 
 # Лог-файли
 logs/
