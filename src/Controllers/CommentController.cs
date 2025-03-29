@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-[Route("api/[controller]")]
-[ApiController]
-public class CommentController : ControllerBase
+public class CommentController : Controller
 {
 	private readonly ApplicationDbContext _context;
 
@@ -14,19 +12,18 @@ public class CommentController : ControllerBase
 		_context = context;
 	}
 
-	[HttpGet("{id}")]
-	public async Task<ActionResult<Comment>> GetCommentById(int id)
+	public async Task<IActionResult> Details(int id)
 	{
 		var comment = await _context.Comments.FindAsync(id);
 		if (comment == null)
 		{
 			return NotFound();
 		}
-		return comment;
+		return View(comment);
 	}
 
-	[HttpDelete("{id}")]
-	public async Task<IActionResult> DeleteCommentById(int id)
+	[HttpPost]
+	public async Task<IActionResult> Delete(int id)
 	{
 		var comment = await _context.Comments.FindAsync(id);
 		if (comment == null)
@@ -37,6 +34,13 @@ public class CommentController : ControllerBase
 		_context.Comments.Remove(comment);
 		await _context.SaveChangesAsync();
 
-		return NoContent();
+		return RedirectToAction("Index"); // або іншу відповідну дію
+	}
+
+	// Додаткові методи для роботи з коментарями
+	public async Task<IActionResult> Index()
+	{
+		var comments = await _context.Comments.ToListAsync();
+		return View(comments);
 	}
 }

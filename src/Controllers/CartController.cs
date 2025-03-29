@@ -3,9 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-[Route("api/[controller]")]
-[ApiController]
-public class CartController : ControllerBase
+public class CartController : Controller
 {
 	private readonly ApplicationDbContext _context;
 
@@ -14,7 +12,7 @@ public class CartController : ControllerBase
 		_context = context;
 	}
 
-	[HttpPost("add/{postId}")]
+	[HttpPost]
 	public async Task<IActionResult> AddPost(int postId)
 	{
 		var post = await _context.Posts.FindAsync(postId);
@@ -33,10 +31,10 @@ public class CartController : ControllerBase
 		cart.Posts.Add(post);
 		await _context.SaveChangesAsync();
 
-		return Ok();
+		return RedirectToAction("Index"); // або іншу відповідну дію
 	}
 
-	[HttpDelete("remove/{postId}")]
+	[HttpPost]
 	public async Task<IActionResult> RemovePost(int postId)
 	{
 		var cart = await _context.Carts
@@ -57,11 +55,10 @@ public class CartController : ControllerBase
 		cart.Posts.Remove(post);
 		await _context.SaveChangesAsync();
 
-		return NoContent();
+		return RedirectToAction("Index"); // або іншу відповідну дію
 	}
 
-	[HttpGet("total")]
-	public async Task<ActionResult<double>> GetTotalPrice()
+	public async Task<IActionResult> GetTotalPrice()
 	{
 		var cart = await _context.Carts
 			.Include(c => c.Posts)
@@ -73,10 +70,12 @@ public class CartController : ControllerBase
 		}
 
 		double total = cart.Posts.Sum(p => p.ProductPrice);
-		return total;
+
+		// Повертаємо View з моделлю
+		return View("CartTotal", total);
 	}
 
-	[HttpPost("checkout")]
+	[HttpPost]
 	public async Task<IActionResult> Checkout()
 	{
 		var cart = await _context.Carts
@@ -85,15 +84,24 @@ public class CartController : ControllerBase
 
 		if (cart == null || !cart.Posts.Any())
 		{
-			return BadRequest("Кошик порожній.");
+			return View("EmptyCartError");
 		}
 
-	
-		// ...
+		// Логіка оформлення покупки...
 
 		cart.Posts.Clear();
 		await _context.SaveChangesAsync();
 
-		return Ok("Покупка оформлена успішно.");
+		return View("CheckoutSuccess");
+	}
+
+	// Додатковий метод для відображення кошика
+	public async Task<IActionResult> Index()
+	{
+		var cart = await _context.Carts
+			.Include(c => c.Posts)
+			.FirstOrDefaultAsync();
+
+		return View(cart);
 	}
 }
