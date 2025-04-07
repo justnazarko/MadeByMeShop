@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using MadeByMe.src.Models;
 
 public class CartController : Controller
 {
@@ -13,94 +14,83 @@ public class CartController : Controller
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> AddPost(int postId)
+	public async Task<IActionResult> AddPost(int buyerId, int postId)
 	{
 		var post = await _context.Posts.FindAsync(postId);
-		if (post == null)
-		{
-			return NotFound();
-		}
+		if (post == null) return NotFound();
 
-		var cart = await _context.Carts.FirstOrDefaultAsync();
+		var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
 		if (cart == null)
 		{
-			cart = new Cart();
+			cart = new Cart { BuyerId = buyerId };
 			_context.Carts.Add(cart);
+			await _context.SaveChangesAsync();
 		}
 
-		cart.Posts.Add(post);
-		await _context.SaveChangesAsync();
+		var cartItem = await _context.BuyerCarts
+			.FirstOrDefaultAsync(bc => bc.CartId == cart.CartId && bc.PostId == postId);
 
-		return RedirectToAction("Index"); // або іншу відповідну дію
+		if (cartItem != null)
+		{
+			cartItem.Quantity += 1;
+		}
+		else
+		{
+			_context.BuyerCarts.Add(new BuyerCart { CartId = cart.CartId, PostId = postId, Quantity = 1 });
+		}
+
+		await _context.SaveChangesAsync();
+		return RedirectToAction("Index", new { buyerId });
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> RemovePost(int postId)
+	public async Task<IActionResult> RemovePost(int buyerId, int postId)
 	{
-		var cart = await _context.Carts
-			.Include(c => c.Posts)
-			.FirstOrDefaultAsync();
+		var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
+		if (cart == null) return NotFound();
 
-		if (cart == null)
-		{
-			return NotFound();
-		}
+		var cartItem = await _context.BuyerCarts
+			.FirstOrDefaultAsync(bc => bc.CartId == cart.CartId && bc.PostId == postId);
 
-		var post = cart.Posts.FirstOrDefault(p => p.PostId == postId);
-		if (post == null)
-		{
-			return NotFound();
-		}
+		if (cartItem == null) return NotFound();
 
-		cart.Posts.Remove(post);
+		_context.BuyerCarts.Remove(cartItem);
 		await _context.SaveChangesAsync();
 
-		return RedirectToAction("Index"); // або іншу відповідну дію
+		return RedirectToAction("Index", new { buyerId });
 	}
 
-	public async Task<IActionResult> GetTotalPrice()
+	public async Task<IActionResult> GetTotalPrice(int buyerId)
 	{
-		var cart = await _context.Carts
-			.Include(c => c.Posts)
-			.FirstOrDefaultAsync();
+		var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
+		if (cart == null) return NotFound();
 
-		if (cart == null)
-		{
-			return NotFound();
-		}
+		var total = await _context.BuyerCarts
+			.Where(bc => bc.CartId == cart.CartId)
+			.SumAsync(bc => bc.Quantity * _context.Posts.Where(p => p.Id == bc.PostId).Select(p => p.Price).FirstOrDefault());
 
-		double total = cart.Posts.Sum(p => p.ProductPrice);
-
-		// Повертаємо View з моделлю
 		return View("CartTotal", total);
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Checkout()
+	public async Task<IActionResult> Checkout(int buyerId)
 	{
-		var cart = await _context.Carts
-			.Include(c => c.Posts)
-			.FirstOrDefaultAsync();
-
-		if (cart == null || !cart.Posts.Any())
-		{
+		var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
+		if (cart == null || !await _context.BuyerCarts.AnyAsync(bc => bc.CartId == cart.CartId))
 			return View("EmptyCartError");
-		}
 
-		// Логіка оформлення покупки...
-
-		cart.Posts.Clear();
+		_context.BuyerCarts.RemoveRange(_context.BuyerCarts.Where(bc => bc.CartId == cart.CartId));
 		await _context.SaveChangesAsync();
 
 		return View("CheckoutSuccess");
 	}
 
-	// Додатковий метод для відображення кошика
-	public async Task<IActionResult> Index()
+	public async Task<IActionResult> Index(int buyerId)
 	{
 		var cart = await _context.Carts
-			.Include(c => c.Posts)
-			.FirstOrDefaultAsync();
+			.Include(c => c.BuyerCarts)
+			.ThenInclude(bc => bc.Post)
+			.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
 
 		return View(cart);
 	}

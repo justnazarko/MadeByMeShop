@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using MadeByMe.src.DTOs;
 using MadeByMe.src.Services;
 
@@ -45,7 +46,6 @@ namespace MadeByMe.src.Controllers
 			if (user == null)
 				return Unauthorized();
 
-			// Логіка для входу (наприклад, створення кукі)
 			return RedirectToAction(nameof(HomeController.Index), "Home");
 		}
 

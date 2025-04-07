@@ -1,40 +1,46 @@
-﻿using System.ComponentModel;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MadeByMe.src.Models
 {
-    public class Post
-    {
+	public class Post
+	{
+		[Key]
+		public int PostId { get; set; } // Було Id
 
-        [Key]
-        public int Id { get; set; }
+		[Required]
+		[MaxLength(100)]
+		public string Name { get; set; } // Було Title
 
-        [Required]
-        [MaxLength(255)]
-        public string Title { get; set; }
+		[Required]
+		public int CategoryId { get; set; }
 
-        //[Required]
-        //public Category Category { get; set; }
+		[ForeignKey("CategoryId")]
+		public Category Category { get; set; }
 
-        [Required]
-        public string Description { get; set; }
+		[Required]
+		public string ProductDescription { get; set; } // Було Description
 
-        [Required]
-        public double Price { get; set; }
+		[Required]
+		public decimal ProductPrice { get; set; } // Було double
 
-        [Required]
-        public string PhotoLink { get; set; }
+		[Required]
+		public string PhotoLink { get; set; }
 
-        [Required]
-        public double Rating { get; set; }
+		[Required]
+		public double Rating { get; set; } = 0.0;
 
-        [Required]
-        [MaxLength(20)]
-        public string Status { get; set; }
+		[Required]
+		[MaxLength(20)]
+		public string Status { get; set; } = "active";
 
-        //public List<Comment> Comments { get; set; } = new List<Comment>();
+		[Required]
+		public int SellerId { get; set; }
 
+		[ForeignKey("SellerId")]
+		public User Seller { get; set; }
 
-    }
+		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+	}
 }

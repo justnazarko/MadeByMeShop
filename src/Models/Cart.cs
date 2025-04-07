@@ -1,8 +1,19 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-public class Cart
+namespace MadeByMe.src.Models
 {
-	public int CartId { get; set; }
+	public class Cart
+	{
+		[Key]
+		public int CartId { get; set; }
 
-	public List<Post> Posts { get; set; } = new List<Post>(); 
+		[Required]
+		public int BuyerId { get; set; }
+
+		public List<Post> Posts { get; set; } = new List<Post>();
+
+		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+	}
 }
