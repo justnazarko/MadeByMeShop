@@ -1,7 +1,7 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MadeByMe.src.DTOs;
 using MadeByMe.src.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MadeByMe.src.Controllers
 {
@@ -44,28 +44,40 @@ namespace MadeByMe.src.Controllers
 
 			var user = _userService.LoginUser(loginUserDto);
 			if (user == null)
-				return Unauthorized();
+			{
+				ModelState.AddModelError("", "Invalid login attempt");
+				return View(loginUserDto);
+			}
 
-			return RedirectToAction(nameof(HomeController.Index), "Home");
+			// Тут має бути логіка автентифікації (SignInManager)
+			return RedirectToAction("Index", "Home");
 		}
 
+		[Authorize]
 		public IActionResult Profile()
 		{
 			var user = _userService.GetCurrentUser();
 			if (user == null)
-				return NotFound();
+				return RedirectToAction(nameof(Login));
 
 			return View(user);
 		}
 
+		[Authorize]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public IActionResult UpdateProfile(UpdateUserDto updateUserDto)
 		{
 			if (!ModelState.IsValid)
-				return View(updateUserDto);
+				return View("Profile", updateUserDto);
 
-			var updatedUser = _userService.UpdateUser(updateUserDto);
+			var currentUser = _userService.GetCurrentUser();
+			if (currentUser == null)
+				return RedirectToAction(nameof(Login));
+
+			updateUserDto.UserId = currentUser.UserId;
+			var updatedUser = _userService.UpdateUser(currentUser.UserId, updateUserDto);
+
 			if (updatedUser == null)
 				return NotFound();
 

@@ -1,7 +1,8 @@
 ﻿using MadeByMe.src.DTOs;
 using MadeByMe.src.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MadeByMe.src.Services
 {
@@ -16,30 +17,35 @@ namespace MadeByMe.src.Services
 
         public List<Post> GetAllPosts()
         {
-            return _context.Posts.ToList();
-            //return _context.Posts.Include(p => p.Comments).ToList();
+            return _context.Posts
+                .Include(p => p.Category)
+                .Include(p => p.Seller)
+                .ToList();
         }
 
         public Post GetPostById(int id)
         {
-            return _context.Posts.FirstOrDefault(p => p.Id == id);
-            //return _context.Posts.Include(p => p.Comments).FirstOrDefault(p => p.Id == id);
+            return _context.Posts
+                .Include(p => p.Category)
+                .Include(p => p.Seller)
+                .FirstOrDefault(p => p.Id == id);
         }
 
-        public void CreatePost(CreatePostDto createPostDto)
+        public Post CreatePost(CreatePostDto createPostDto)
         {
-            var post = new Post 
+            var post = new Post
             {
                 Title = createPostDto.Title,
                 Description = createPostDto.Description,
                 Price = createPostDto.Price,
                 PhotoLink = createPostDto.PhotoLink,
-                Status = createPostDto.Status
+                CategoryId = createPostDto.CategoryId,
+                SellerId = createPostDto.SellerId
             };
-
 
             _context.Posts.Add(post);
             _context.SaveChanges();
+            return post;
         }
 
         public Post UpdatePost(int id, UpdatePostDto updatePostDto)
@@ -47,19 +53,18 @@ namespace MadeByMe.src.Services
             var post = _context.Posts.Find(id);
             if (post != null)
             {
-                post.Title = updatePostDto.Title;
-                post.Description = updatePostDto.Description;
-                post.Price = updatePostDto.Price;
-                post.PhotoLink = updatePostDto.PhotoLink;
-                post.Status = updatePostDto.Status;
+                post.Title = updatePostDto.Title ?? post.Title;
+                post.Description = updatePostDto.Description ?? post.Description;
+                post.Price = updatePostDto.Price ?? post.Price;  // Додано оператор ?? для decimal?
+                post.PhotoLink = updatePostDto.PhotoLink ?? post.PhotoLink;
+                post.CategoryId = updatePostDto.CategoryId ?? post.CategoryId;  // Додано оператор ?? для int?
+
+                _context.SaveChanges();
             }
-
-            _context.SaveChanges();
-
             return post;
         }
 
-        public bool RemovePost(int id)
+        public bool DeletePost(int id)
         {
             var post = _context.Posts.Find(id);
             if (post != null)
@@ -68,10 +73,7 @@ namespace MadeByMe.src.Services
                 _context.SaveChanges();
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

@@ -1,19 +1,19 @@
-using System;
-using System.Collections.Generic;
+﻿
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-
 namespace MadeByMe.src.Models
 {
-	public class Cart
-	{
-		[Key]
-		public int CartId { get; set; }
+    public class Cart
+    {
+        [Key]
+        public int CartId { get; set; }
 
-		[Required]
-		public int BuyerId { get; set; }
+        public int? BuyerId { get; set; }
 
-		public List<Post> Posts { get; set; } = new List<Post>();
+        [ForeignKey("BuyerId")]
+        public User Buyer { get; set; }
 
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-	}
+        // Додати колекцію для зв'язку
+        public ICollection<BuyerCart> BuyerCarts { get; set; } = new List<BuyerCart>();
+    }
 }

@@ -1,0 +1,57 @@
+﻿@model MadeByMe.src.Models.Cart
+
+@{
+    ViewData["Title"] = "Ваш кошик";
+}
+
+<div class="container">
+    <h1>Ваш кошик</h1>
+
+    @if (Model?.BuyerCarts?.Any() == true)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Ціна</th>
+                    <th>Кількість</th>
+                    <th>Сума</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.BuyerCarts)
+                {
+                    <tr>
+                        <td>@item.Post.Title</td>
+                        <td>@item.Post.Price.ToString("C")</td>
+                        <td>@item.Quantity</td>
+                        <td>@((item.Quantity * item.Post.Price).ToString("C"))</td>
+                        <td>
+                            <a asp-action="RemovePost" asp-route-postId="@item.PostId" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="3">Загальна сума:</th>
+                    <th>@Model.BuyerCarts.Sum(i => i.Quantity * i.Post.Price).ToString("C")</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-right">
+            <a asp-action="Checkout" class="btn btn-success btn-lg">Оформити замовлення</a>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            Ваш кошик порожній. <a asp-controller="Post" asp-action="Index">Перейти до каталогу</a>
+        </div>
+    }
+</div>

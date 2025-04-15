@@ -1,20 +1,20 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MadeByMe.src.Models
 {
 	public class BuyerCart
 	{
-		[Key]
-		public int CartItemId { get; set; }
+        [Key]
+        public int CartItemId { get; set; }
 
-		[Required]
-		public int CartId { get; set; }
+        // Видалити анотацію [ForeignKey] звідси
+        public int CartId { get; set; }  // Залишаємо просто властивість
 
-		[ForeignKey("CartId")]
-		public Cart Cart { get; set; }
+        [ForeignKey("CartId")]  // Або перенести сюди, якщо потрібно
+        public Cart Cart { get; set; }
 
-		[Required]
+        [Required]
 		public int PostId { get; set; }
 
 		[ForeignKey("PostId")]

@@ -1,4 +1,4 @@
-using MadeByMe.src.DTOs;
+﻿using MadeByMe.src.DTOs;
 using MadeByMe.src.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,16 +42,20 @@ namespace MadeByMe.src.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-		public IActionResult Edit(int id)
-		{
-			var category = _categoryService.GetCategoryById(id);
-			if (category == null) return NotFound();
+        public IActionResult Edit(int id)
+        {
+            var category = _categoryService.GetCategoryById(id);
+            if (category == null) return NotFound();
 
-			var updateDto = new UpdateCategoryDto { Name = category.Name, Description = category.Description };
-			return View(updateDto);
-		}
+            var updateDto = new UpdateCategoryDto
+            {
+                Name = category.Name,
+                Description = ""  // Видалити або додати поле Description в модель Category
+            };
+            return View(updateDto);
+        }
 
-		[HttpPost]
+        [HttpPost]
 		[ValidateAntiForgeryToken]
 		public IActionResult Edit(int id, UpdateCategoryDto updateCategoryDto)
 		{
@@ -79,5 +83,6 @@ namespace MadeByMe.src.Controllers
 
 			return RedirectToAction(nameof(Index));
 		}
+
 	}
 }

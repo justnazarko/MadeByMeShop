@@ -1,46 +1,37 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MadeByMe.src.Models
 {
-	public class Post
-	{
-		[Key]
-		public int PostId { get; set; } // Було Id
+    public class Post
+    {
+        [Key]
+        [Column("post_id")]  // Видалити один з атрибутів Column
+        public int Id { get; set; }
 
-		[Required]
-		[MaxLength(100)]
-		public string Name { get; set; } // Було Title
+        [Required]
+        [MaxLength(100)]
+        public string Title { get; set; }
 
-		[Required]
-		public int CategoryId { get; set; }
+        public string Description { get; set; }
 
-		[ForeignKey("CategoryId")]
-		public Category Category { get; set; }
+        [Column(TypeName = "decimal(10, 2)")]  // Залишити тільки цей атрибут
+        public decimal Price { get; set; }
+        public string PhotoLink { get; set; }
 
-		[Required]
-		public string ProductDescription { get; set; } // Було Description
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
-		[Required]
-		public decimal ProductPrice { get; set; } // Було double
+        public int SellerId { get; set; }
+        public User Seller { get; set; }
 
-		[Required]
-		public string PhotoLink { get; set; }
+        [Column(TypeName = "numeric(3,2)")]
+        public decimal Rating { get; set; } = 0.0m;
 
-		[Required]
-		public double Rating { get; set; } = 0.0;
+        [MaxLength(20)]
+        public string Status { get; set; } = "active";
 
-		[Required]
-		[MaxLength(20)]
-		public string Status { get; set; } = "active";
-
-		[Required]
-		public int SellerId { get; set; }
-
-		[ForeignKey("SellerId")]
-		public User Seller { get; set; }
-
-		public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-	}
+        [Column("created_at")]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    }
 }

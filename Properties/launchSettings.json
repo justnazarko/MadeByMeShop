@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "MadeByMe": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:52387;http://localhost:52388"
+    }
+  }
+}
