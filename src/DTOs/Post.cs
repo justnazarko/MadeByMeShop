@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MadeByMe.src.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MadeByMe.src.DTOs
@@ -51,8 +52,8 @@ namespace MadeByMe.src.DTOs
         public string PhotoLink { get; set; }
         public decimal Rating { get; set; }
         public string Status { get; set; }
-        public string CategoryName { get; set; }
-        public string SellerName { get; set; }
+        public Category CategoryName { get; set; }
+        public User SellerName { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

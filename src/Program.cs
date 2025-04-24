@@ -31,6 +31,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     }
 });
 
+builder.Services.AddControllersWithViews()
+    .AddRazorOptions(options =>
+    {
+        options.ViewLocationFormats.Clear();
+        options.ViewLocationFormats.Add("/src/Views/{1}/{0}.cshtml");
+        options.ViewLocationFormats.Add("/src/Views/Shared/{0}.cshtml");
+    });
+
+
 // 3. Реєстрація сервісів
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<UserService>();
