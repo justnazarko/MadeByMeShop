@@ -17,7 +17,22 @@ namespace MadeByMe.src.Controllers
         public IActionResult Index()
         {
             var posts = _postService.GetAllPosts();
-            return View(posts);
+
+            var postsList = posts.Select(post => new DTOs.PostResponseDto
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Description = post.Description,
+                Price = post.Price,
+                PhotoLink = post.PhotoLink,
+                Rating = post.Rating,
+                Status = post.Status,
+                CategoryName = post.Category,
+                SellerName = post.Seller,
+                CreatedAt = post.CreatedAt
+            }).ToList();
+
+            return View(postsList);
         }
 
         public IActionResult Details(int id)
