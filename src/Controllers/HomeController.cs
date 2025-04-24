@@ -2,6 +2,7 @@
 using MadeByMe.src.Services;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using MadeByMe.src.Models;
 
 namespace MadeByMe.src.Controllers
 {
@@ -45,7 +46,10 @@ namespace MadeByMe.src.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
         }
     }
 }
