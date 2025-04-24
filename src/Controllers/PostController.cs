@@ -77,7 +77,7 @@ namespace MadeByMe.src.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Edit(int id)
         {
             var post = _postService.GetPostById(id);
@@ -93,10 +93,19 @@ namespace MadeByMe.src.Controllers
                 CategoryId = post.CategoryId
             };
 
+            var categories = _context.Categories.Select(c => new SelectListItem
+            {
+                Value = c.CategoryId.ToString(),
+                Text = c.Name
+            })
+        .ToList();
+
+            ViewBag.Categories = categories;
+
             return View(updateDto);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, UpdatePostDto updatePostDto)
@@ -111,7 +120,7 @@ namespace MadeByMe.src.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Delete(int id)
         {
             var post = _postService.GetPostById(id);
@@ -121,7 +130,7 @@ namespace MadeByMe.src.Controllers
             return View(post);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
