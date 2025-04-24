@@ -30,17 +30,26 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    @* <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
+    </div> *@
 
-    <footer class="border-top footer text-muted">
+    @* <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2025 - MadeByMe - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
+    </footer> *@
+
+    <div class="wrapper">
+        @RenderBody()
+    </div>
+
+    <footer class="footer">
+        <p> MadeByMe 1.0 © 2025</p>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
