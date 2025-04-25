@@ -11,7 +11,7 @@ namespace MadeByMe.src.Models
         public int? BuyerId { get; set; }
 
         [ForeignKey("BuyerId")]
-        public User Buyer { get; set; }
+        public ApplicationUser Buyer { get; set; }
 
         // Додати колекцію для зв'язку
         public ICollection<BuyerCart> BuyerCarts { get; set; } = new List<BuyerCart>();

@@ -23,7 +23,7 @@ namespace MadeByMe.src.Models
         public Category Category { get; set; }
 
         public int SellerId { get; set; }
-        public User Seller { get; set; }
+        public ApplicationUser Seller { get; set; }
 
         [Column(TypeName = "numeric(3,2)")]
         public decimal Rating { get; set; } = 0.0m;

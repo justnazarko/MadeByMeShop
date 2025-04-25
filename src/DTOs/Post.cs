@@ -53,7 +53,7 @@ namespace MadeByMe.src.DTOs
         public decimal Rating { get; set; }
         public string Status { get; set; }
         public Category CategoryName { get; set; }
-        public User SellerName { get; set; }
+        public ApplicationUser SellerName { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

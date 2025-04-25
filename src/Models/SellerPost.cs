@@ -12,7 +12,7 @@ namespace MadeByMe.src.Models
 		public int SellerId { get; set; }
 
 		[ForeignKey("SellerId")]
-		public User Seller { get; set; }
+		public ApplicationUser Seller { get; set; }
 
 		[Key]
 		[Column("post_id")]

@@ -12,7 +12,7 @@ namespace MadeByMe.src.Models
         public int UserId { get; set; }
 
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
 
         [Required]
         public int PostId { get; set; }
