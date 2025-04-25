@@ -2,17 +2,23 @@
 using MadeByMe.src.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using MadeByMe.src.Models;
 
 namespace MadeByMe.src.Controllers
 {
     public class PostController : Controller
     {
         private readonly PostService _postService;
+        private readonly ApplicationDbContext _context;
 
-        public PostController(PostService postService)
+        public PostController(PostService postService, ApplicationDbContext context)
         {
             _postService = postService;
+            _context = context;
         }
+
 
         public IActionResult Index()
         {
@@ -35,7 +41,7 @@ namespace MadeByMe.src.Controllers
             return View(postsList);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int id) //після додавання Авторизації відредагувати посилання на кошик, коментарі
         {
             var post = _postService.GetPostById(id);
             if (post == null)
@@ -44,13 +50,21 @@ namespace MadeByMe.src.Controllers
             return View(post);
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Create()
         {
+            var categories = _context.Categories.Select(c => new SelectListItem
+        {
+            Value = c.CategoryId.ToString(),
+            Text = c.Name
+        })
+        .ToList();
+
+            ViewBag.Categories = categories;
             return View();
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreatePostDto createPostDto)
@@ -59,10 +73,11 @@ namespace MadeByMe.src.Controllers
                 return View(createPostDto);
 
             _postService.CreatePost(createPostDto);
+            
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Edit(int id)
         {
             var post = _postService.GetPostById(id);
@@ -78,10 +93,19 @@ namespace MadeByMe.src.Controllers
                 CategoryId = post.CategoryId
             };
 
+            var categories = _context.Categories.Select(c => new SelectListItem
+            {
+                Value = c.CategoryId.ToString(),
+                Text = c.Name
+            })
+        .ToList();
+
+            ViewBag.Categories = categories;
+
             return View(updateDto);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, UpdatePostDto updatePostDto)
@@ -96,7 +120,7 @@ namespace MadeByMe.src.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Delete(int id)
         {
             var post = _postService.GetPostById(id);
@@ -106,7 +130,7 @@ namespace MadeByMe.src.Controllers
             return View(post);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)

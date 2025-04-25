@@ -6,7 +6,7 @@ namespace MadeByMe.src.DTOs
 {
     public class CreatePostDto
     {
-        [Required]
+        [Required(ErrorMessage = "Поле 'Назва' є обов'язковим")]
         [MaxLength(100)]
         public string Title { get; set; }
 
