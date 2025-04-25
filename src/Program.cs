@@ -60,6 +60,22 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 var app = builder.Build();
 
+async Task SeedRoles(IServiceProvider serviceProvider)
+{
+var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+string[] roles = { "User", "Seller", "Admin" };
+
+foreach (var role in roles)
+{
+if (!await roleManager.RoleExistsAsync(role))
+{
+await roleManager.CreateAsync(new IdentityRole(role));
+}
+}
+}
+
+
 // 5. Обробка міграцій
 try
 {
@@ -84,6 +100,8 @@ catch (Exception ex)
     throw;
 }
 
+
+
 // 6. Конфігурація middleware
 if (!app.Environment.IsDevelopment())
 {
@@ -100,3 +118,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.Run();
+
+await SeedRoles(app.Services);
