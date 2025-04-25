@@ -1,5 +1,7 @@
 ﻿using MadeByMe.src.DTOs;
 using MadeByMe.src.Models;
+using MadeByMe.src.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +11,15 @@ namespace MadeByMe.src.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly ApplicationUserService _ApplicationUserService;
 
         public AccountController(UserManager<ApplicationUser> userManager,
-                                 SignInManager<ApplicationUser> signInManager)
+                                 SignInManager<ApplicationUser> signInManager,
+                                 ApplicationUserService applicationUserService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _ApplicationUserService = applicationUserService;
         }
 
         public IActionResult Register()
@@ -75,6 +80,40 @@ namespace MadeByMe.src.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        [Authorize]
+        public IActionResult Profile()
+        {
+            var user = _userManager.GetUserAsync(User);
+            if (user == null)
+                return RedirectToAction(nameof(Login));
+
+            return View(user);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateProfile(UpdateProfileDto dto)
+        {
+            if (!ModelState.IsValid)
+                return View("Profile", dto);
+
+            var currentUser = _userManager.GetUserAsync(User);
+            if (currentUser == null)
+                return RedirectToAction(nameof(Login));
+
+            dto.UserId = currentUser.Id;
+            var updatedUser = _ApplicationUserService.UpdateUser(currentUser.Id, dto);
+
+            if (updatedUser == null)
+                return NotFound();
+
+            return RedirectToAction(nameof(Profile));
+        }
+
+
+
     }
 
 }

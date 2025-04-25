@@ -43,7 +43,7 @@ builder.Services.AddControllersWithViews()
 
 // 3. Реєстрація сервісів
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ApplicationUserService>();
 builder.Services.AddScoped<PostService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<CommentService>();

@@ -12,7 +12,7 @@ namespace MadeByMe.src.Models
 
 
         // DbSet для кожної моделі
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Post> Posts { get; set; }
 		public DbSet<Comment> Comments { get; set; }
