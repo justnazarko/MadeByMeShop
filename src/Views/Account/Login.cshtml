@@ -1,0 +1,23 @@
+﻿@model MadeByMe.src.DTOs.LoginDto
+
+@{
+    ViewData["Title"] = "Вхід";
+}
+
+<h2>Вхід</h2>
+
+<form asp-action="Login" method="post">
+    <div class="form-group">
+        <label asp-for="EmailAddress"></label>
+        <input asp-for="EmailAddress" class="form-control" />
+        <span asp-validation-for="EmailAddress" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" type="password" />
+        <span asp-validation-for="Password" class="text-danger" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Увійти</button>
+</form>

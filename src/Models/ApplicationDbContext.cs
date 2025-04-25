@@ -1,18 +1,18 @@
 ﻿using MadeByMe.src.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MadeByMe.src.Models
 {
-	public class ApplicationDbContext : DbContext
-	{
-		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-			: base(options)
-		{
-		}
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options) { }
 
-		// DbSet для кожної моделі
-		public DbSet<User> Users { get; set; }
+
+        // DbSet для кожної моделі
+        public DbSet<User> Users { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Post> Posts { get; set; }
 		public DbSet<Comment> Comments { get; set; }

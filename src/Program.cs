@@ -1,5 +1,6 @@
 ﻿using MadeByMe.src.Models;
 using MadeByMe.src.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -52,6 +53,10 @@ builder.Services.AddScoped<BuyerCartService>();
 // 4. Додаткові сервіси
 builder.Services.AddControllersWithViews();
 builder.Services.AddMemoryCache();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
 
 var app = builder.Build();
 
