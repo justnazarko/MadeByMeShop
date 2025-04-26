@@ -8,7 +8,7 @@ namespace MadeByMe.src.Models
         [Key]
         public int CartId { get; set; }
 
-        public int? BuyerId { get; set; }
+        public string BuyerId { get; set; }
 
         [ForeignKey("BuyerId")]
         public ApplicationUser Buyer { get; set; }

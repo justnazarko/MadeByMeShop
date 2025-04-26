@@ -15,7 +15,7 @@ namespace MadeByMe.src.Services
             _context = context;
         }
 
-        public Cart GetUserCart(int userId)
+        public Cart GetUserCart(string userId)
         {
             return _context.Carts
                 .Include(c => c.BuyerCarts)

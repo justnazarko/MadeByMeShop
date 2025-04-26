@@ -9,15 +9,15 @@ namespace MadeByMe.src.Models
         public int CommentId { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
-        [ForeignKey("UserId")]
+        //[ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
         [Required]
         public int PostId { get; set; }
 
-        [ForeignKey("PostId")]
+        //[ForeignKey(nameof(PostId))]
         public Post Post { get; set; }
 
         [Required]

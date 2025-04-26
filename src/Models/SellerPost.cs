@@ -6,19 +6,20 @@ using System.ComponentModel.DataAnnotations;
 namespace MadeByMe.src.Models
 {
 	public class SellerPost
-	{
-		[Key]
-		[Column("seller_id")]
-		public int SellerId { get; set; }
+    {
+        [Key]
+        public int Id { get; set; } 
 
-		[ForeignKey("SellerId")]
-		public ApplicationUser Seller { get; set; }
+        [Required]
+        public string SellerId { get; set; } 
 
-		[Key]
-		[Column("post_id")]
-		public int PostId { get; set; }
+        [ForeignKey("SellerId")]
+        public ApplicationUser Seller { get; set; }
 
-		[ForeignKey("PostId")]
-		public Post Post { get; set; }
-	}
+        [Required]
+        public int PostId { get; set; } 
+
+        [ForeignKey("PostId")]
+        public Post Post { get; set; }
+    }
 }

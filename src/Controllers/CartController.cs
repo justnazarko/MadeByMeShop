@@ -14,7 +14,7 @@ public class CartController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddPost(int buyerId, int postId)
+    public async Task<IActionResult> AddPost(string buyerId, int postId)
     {
         var post = await _context.Posts.FindAsync(postId);
         if (post == null) return NotFound();
@@ -49,7 +49,7 @@ public class CartController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> RemovePost(int buyerId, int postId)
+    public async Task<IActionResult> RemovePost(string buyerId, int postId)
     {
         var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
         if (cart == null) return NotFound();
@@ -65,7 +65,7 @@ public class CartController : Controller
         return RedirectToAction("Index", new { buyerId });
     }
 
-    public async Task<IActionResult> GetTotalPrice(int buyerId)
+    public async Task<IActionResult> GetTotalPrice(string buyerId)
     {
         var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
         if (cart == null) return NotFound();
@@ -81,7 +81,7 @@ public class CartController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Checkout(int buyerId)
+    public async Task<IActionResult> Checkout(string buyerId)
     {
         var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
         if (cart == null || !await _context.BuyerCarts.AnyAsync(bc => bc.CartId == cart.CartId))
@@ -93,7 +93,7 @@ public class CartController : Controller
         return View("CheckoutSuccess");
     }
 
-    public async Task<IActionResult> Index(int buyerId)
+    public async Task<IActionResult> Index(string buyerId)
     {
         var cart = await _context.Carts
             .Include(c => c.BuyerCarts)

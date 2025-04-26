@@ -6,9 +6,9 @@ namespace MadeByMe.src.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Key]
-        [Column("user_id")]
-        public int UserId { get; set; }
+        //[Key]
+        //[Column("user_id")]
+        //public int UserId { get; set; }
 
         [Required]
         [MaxLength(50)]

@@ -5,7 +5,7 @@ namespace MadeByMe.src.DTOs
 	public class AssignPostToSellerDto
 	{
 		[Required]
-		public int SellerId { get; set; }
+		public string SellerId { get; set; }
 
 		[Required]
 		public int PostId { get; set; }
@@ -13,7 +13,7 @@ namespace MadeByMe.src.DTOs
 
 	public class SellerPostsResponseDto
 	{
-		public int SellerId { get; set; }
+		public string SellerId { get; set; }
 		public string SellerName { get; set; }
 		public List<PostResponseDto> Posts { get; set; }
 	}

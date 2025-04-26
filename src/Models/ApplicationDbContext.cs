@@ -26,9 +26,21 @@ namespace MadeByMe.src.Models
 
             // Налаштування зв'язків та обмежень
 
-            // Налаштування зв'язків
+            //// Налаштування зв'язків
+            //modelBuilder.Entity<SellerPost>()
+            //    .HasKey(sp => new { sp.SellerId, sp.PostId });
+
             modelBuilder.Entity<SellerPost>()
-                .HasKey(sp => new { sp.SellerId, sp.PostId });
+				.HasOne(sp => sp.Seller)
+				.WithMany()  
+				.HasForeignKey(sp => sp.SellerId)
+				.OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SellerPost>()
+                .HasOne(sp => sp.Post)
+                .WithMany()
+                .HasForeignKey(sp => sp.PostId)
+                .OnDelete(DeleteBehavior.Cascade); 
 
             modelBuilder.Entity<Post>()
                 .HasOne(p => p.Category)
@@ -44,21 +56,32 @@ namespace MadeByMe.src.Models
 				.HasForeignKey(p => p.SellerId)
 				.OnDelete(DeleteBehavior.Restrict);
 
-			// Comment: зв'язок з User та Post
-			modelBuilder.Entity<Comment>()
-				.HasOne(c => c.User)
-				.WithMany()
-				.HasForeignKey(c => c.UserId)
-				.OnDelete(DeleteBehavior.Cascade);
+            // Comment: зв'язок з User та Post
+            //modelBuilder.Entity<Comment>()
+            //	.HasOne(c => c.User)
+            //	.WithMany()
+            //	.HasForeignKey(c => c.UserId)
+            //	.OnDelete(DeleteBehavior.Cascade);
 
-			modelBuilder.Entity<Comment>()
-				.HasOne(c => c.Post)
-				.WithMany()
-				.HasForeignKey(c => c.PostId)
-				.OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<Comment>()
+            //	.HasOne(c => c.Post)
+            //	.WithMany()
+            //	.HasForeignKey(c => c.PostId)
+            //	.OnDelete(DeleteBehavior.Cascade);
 
-			// Cart: зв'язок з User (Buyer)
-			modelBuilder.Entity<Cart>()
+            modelBuilder.Entity<Comment>()
+               .HasOne(c => c.Post)
+               .WithMany(p => p.CommentsList)
+               .HasForeignKey(c => c.PostId);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.UserId);
+
+
+            // Cart: зв'язок з User (Buyer)
+            modelBuilder.Entity<Cart>()
 				.HasOne(c => c.Buyer)
 				.WithMany()
 				.HasForeignKey(c => c.BuyerId)

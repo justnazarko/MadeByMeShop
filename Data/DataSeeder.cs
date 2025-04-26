@@ -15,32 +15,33 @@ namespace MadeByMe.src.Data
             );
 
             // 2. Користувачі (3 приклади)
-            modelBuilder.Entity<User>().HasData(
-                new User
+            var userId1 = Guid.NewGuid().ToString();
+            var userId2 = Guid.NewGuid().ToString();
+            var userId3 = Guid.NewGuid().ToString();
+
+            modelBuilder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser
                 {
-                    UserId = 1,
-                    Username = "admin",
+                    Id = userId1,
+                    Name = "admin",
                     EmailAddress = "admin@example.com",
-                    Password = "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==", // Захешований пароль
-                    UserType = "Admin",
+                    Password = "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==", // Захешований пароль          
                     ProfilePicture = "/images/admin.jpg"
                 },
-                new User
+                new ApplicationUser
                 {
-                    UserId = 2,
-                    Username = "artist123",
+                    Id = userId2,
+                    Name = "artist123",
                     EmailAddress = "artist@example.com",
                     Password = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
-                    UserType = "Seller",
                     ProfilePicture = "/images/artist.jpg"
                 },
-                new User
+                new ApplicationUser
                 {
-                    UserId = 3,
-                    Username = "customer1",
+                    Id = userId3,
+                    Name = "customer1",
                     EmailAddress = "customer@example.com",
                     Password = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
-                    UserType = "Buyer",
                     ProfilePicture = "/images/customer.jpg"
                 }
             );
@@ -55,7 +56,7 @@ namespace MadeByMe.src.Data
                     Price = 799.99m,
                     PhotoLink = "/images/earring1.jpg",
                     CategoryId = 1,
-                    SellerId = 2,
+                    SellerId = userId2,
                     CreatedAt = DateTime.UtcNow
                 },
                 new Post
@@ -66,7 +67,7 @@ namespace MadeByMe.src.Data
                     Price = 1200.50m,
                     PhotoLink = "/images/vase.jpg",
                     CategoryId = 2,
-                    SellerId = 2,
+                    SellerId = userId2,
                     CreatedAt = DateTime.UtcNow.AddDays(-5)
                 },
                 new Post
@@ -77,7 +78,7 @@ namespace MadeByMe.src.Data
                     Price = 2500.00m,
                     PhotoLink = "/images/painting.jpg",
                     CategoryId = 3,
-                    SellerId = 2,
+                    SellerId = userId2,
                     CreatedAt = DateTime.UtcNow.AddDays(-10)
                 }
             );
@@ -87,7 +88,7 @@ namespace MadeByMe.src.Data
                 new Comment
                 {
                     CommentId = 1,
-                    UserId = 3,
+                    UserId = userId3,
                     PostId = 1,
                     Content = "Дуже гарна сережка! Якісне виконання.",
                     CreatedAt = DateTime.UtcNow.AddHours(-2)
@@ -95,7 +96,7 @@ namespace MadeByMe.src.Data
                 new Comment
                 {
                     CommentId = 2,
-                    UserId = 1,
+                    UserId = userId1,
                     PostId = 3,
                     Content = "Чудова картина, автор - талановитий!",
                     CreatedAt = DateTime.UtcNow.AddDays(-1)
@@ -107,12 +108,12 @@ namespace MadeByMe.src.Data
                 new Cart
                 {
                     CartId = 1,
-                    BuyerId = 3
+                    BuyerId = userId3
                 },
                 new Cart
                 {
                     CartId = 2,
-                    BuyerId = 1
+                    BuyerId = userId1
                 }
             );
 
@@ -145,17 +146,20 @@ namespace MadeByMe.src.Data
             modelBuilder.Entity<SellerPost>().HasData(
                 new SellerPost
                 {
-                    SellerId = 2,
+                    Id = 1,
+                    SellerId = userId2,
                     PostId = 1
                 },
                 new SellerPost
                 {
-                    SellerId = 2,
+                    Id = 2,
+                    SellerId = userId2,
                     PostId = 2
                 },
                 new SellerPost
                 {
-                    SellerId = 2,
+                    Id = 3,
+                    SellerId = userId2,
                     PostId = 3
                 }
             );

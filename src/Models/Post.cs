@@ -6,7 +6,6 @@ namespace MadeByMe.src.Models
     public class Post
     {
         [Key]
-        [Column("post_id")]  // Видалити один з атрибутів Column
         public int Id { get; set; }
 
         [Required]
@@ -22,7 +21,7 @@ namespace MadeByMe.src.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public int SellerId { get; set; }
+        public string SellerId { get; set; }
         public ApplicationUser Seller { get; set; }
 
         [Column(TypeName = "numeric(3,2)")]
