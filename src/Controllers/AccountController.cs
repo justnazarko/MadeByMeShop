@@ -81,7 +81,7 @@ namespace MadeByMe.src.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize]
+        [Authorize(Roles = "User, Seller")]
         public IActionResult Profile()
         {
             var user = _userManager.GetUserAsync(User);
@@ -91,7 +91,7 @@ namespace MadeByMe.src.Controllers
             return View(user);
         }
 
-        [Authorize]
+        [Authorize(Roles = "User, Seller")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult UpdateProfile(UpdateProfileDto dto)

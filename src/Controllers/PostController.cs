@@ -50,7 +50,7 @@ namespace MadeByMe.src.Controllers
             return View(post);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Seller")]
         public IActionResult Create()
         {
             var categories = _context.Categories.Select(c => new SelectListItem
@@ -64,7 +64,7 @@ namespace MadeByMe.src.Controllers
             return View();
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Seller")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreatePostDto createPostDto)
@@ -77,7 +77,7 @@ namespace MadeByMe.src.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Seller")]
         public IActionResult Edit(int id)
         {
             var post = _postService.GetPostById(id);
@@ -105,7 +105,7 @@ namespace MadeByMe.src.Controllers
             return View(updateDto);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Seller")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, UpdatePostDto updatePostDto)
@@ -120,7 +120,7 @@ namespace MadeByMe.src.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Seller")]
         public IActionResult Delete(int id)
         {
             var post = _postService.GetPostById(id);
@@ -130,7 +130,7 @@ namespace MadeByMe.src.Controllers
             return View(post);
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Seller")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
