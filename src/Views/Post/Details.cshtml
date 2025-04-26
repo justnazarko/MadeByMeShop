@@ -48,4 +48,54 @@
             }
         </div>
     </div> *@
+
+
+    <h2>Коментарі:</h2>
+
+    @if (Model.CommentsList != null && Model.CommentsList.Any())
+    {
+        foreach (var comment in Model.CommentsList)
+        {
+            <div class="comment">
+                <p><strong>@comment.User.Name</strong> (@comment.CreatedAt.ToShortDateString()):</p>
+                <p>@comment.Content</p>
+                @if (User.Identity.IsAuthenticated &&
+               (User.IsInRole("Admin") || comment.User.Name == User.Identity.Name))
+                {
+                    <form asp-action="Delete" asp-controller="Comment" asp-route-id="@comment.CommentId" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Видалити</button>
+                    </form>
+                }
+
+            </div>
+
+        }
+    }
+    else
+    {
+        <p>Ще немає коментарів.</p>
+    }
+
+    <hr />
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h3>Додати коментар:</h3>
+
+        <form asp-action="Create" asp-controller="Comment" method="post">
+            <input type="hidden" name="PostId" value="@Model.Id" />
+
+            <div class="form-group">
+                <label for="Content">Коментар</label>
+                <textarea name="Content" class="form-control" name="Content" rows="4" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-2">Надіслати</button>
+        </form>
+    }
+    else
+    {
+        <p><a asp-controller="Account" asp-action="Login">Увійдіть</a>, щоб залишити коментар.</p>
+    }
+
 </div>

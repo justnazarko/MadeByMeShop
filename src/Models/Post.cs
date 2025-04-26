@@ -33,5 +33,7 @@ namespace MadeByMe.src.Models
 
         [Column("created_at")]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public ICollection<Comment> CommentsList { get; set; } = new List<Comment>();
     }
 }

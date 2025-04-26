@@ -28,6 +28,7 @@ namespace MadeByMe.src.Services
             return _context.Posts
                 .Include(p => p.Category)
                 .Include(p => p.Seller)
+                .Include(p => p.CommentsList)
                 .FirstOrDefault(p => p.Id == id);
         }
 

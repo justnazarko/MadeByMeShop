@@ -23,7 +23,18 @@ namespace MadeByMe.src.Services
 				.ToList();
 		}
 
-		public Comment AddComment(CreateCommentDto dto)
+		public Comment GetCommentById(int id)
+		{
+			return _context.Comments
+				.Include(c => c.User)
+				.Include(c => c.Post)
+				.Include(c => c.Content)
+				.Include(c => c.CreatedAt)
+                .FirstOrDefault(c => c.CommentId == id);
+        }
+
+
+        public Comment AddComment(CreateCommentDto dto)
 		{
 			var comment = new Comment
 			{
