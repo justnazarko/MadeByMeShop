@@ -35,8 +35,8 @@ namespace MadeByMe.src.Controllers
 
             var user = new ApplicationUser
             {
-                Name = dto.Name,
-                EmailAddress = dto.EmailAddress
+                UserName = dto.UserName,
+                Email = dto.Email
                
             };
 
@@ -65,7 +65,7 @@ namespace MadeByMe.src.Controllers
             if (!ModelState.IsValid)
                 return View(dto);
 
-            var result = await _signInManager.PasswordSignInAsync(dto.EmailAddress, dto.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(dto.Email, dto.Password, false, false);
 
             if (result.Succeeded)
                 return RedirectToAction("Index", "Home");

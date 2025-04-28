@@ -65,7 +65,7 @@ public class CommentController : Controller
         }
 
         var currentUserName = User.Identity.Name;
-        if (comment.User.Name == currentUserName)
+        if (comment.User.UserName == currentUserName)
         {
             _commentService.DeleteComment(id);
             return RedirectToAction("Details", "Post", new { id = comment.PostId });

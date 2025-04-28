@@ -10,8 +10,8 @@
             <div class="card">
                 <img src="@(Model.ProfilePicture ?? "/images/default-avatar.png")" class="card-img-top" alt="Аватар">
                 <div class="card-body text-center">
-                    <h5 class="card-title">@Model.Name</h5>
-                    <p class="text-muted">@Model.EmailAddress</p>
+                    <h5 class="card-title">@Model.UserName</h5>
+                    <p class="text-muted">@Model.Email</p>
                     <a asp-action="Edit" class="btn btn-outline-primary">Редагувати профіль</a>
                 </div>
             </div>

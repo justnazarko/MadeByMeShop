@@ -20,8 +20,8 @@ namespace MadeByMe.src.Services
             var user = _context.Users.Find(userId);
             if (user != null)
             {
-                user.Name = dto.Name ?? user.Name;
-                user.EmailAddress = dto.EmailAddress ?? user.EmailAddress;
+                user.UserName = dto.UserName ?? user.UserName;
+                user.Email = dto.Email ?? user.Email;
                 user.ProfilePicture = dto.ProfilePicture ?? user.ProfilePicture;
                 _context.SaveChanges();
             }

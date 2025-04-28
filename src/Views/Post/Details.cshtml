@@ -57,10 +57,10 @@
         foreach (var comment in Model.CommentsList)
         {
             <div class="comment">
-                <p><strong>@comment.User.Name</strong> (@comment.CreatedAt.ToShortDateString()):</p>
+                <p><strong>@comment.User.UserName</strong> (@comment.CreatedAt.ToShortDateString()):</p>
                 <p>@comment.Content</p>
                 @if (User.Identity.IsAuthenticated &&
-               (User.IsInRole("Admin") || comment.User.Name == User.Identity.Name))
+               (User.IsInRole("Admin") || comment.User.UserName == User.Identity.Name))
                 {
                     <form asp-action="Delete" asp-controller="Comment" asp-route-id="@comment.CommentId" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger btn-sm">Видалити</button>

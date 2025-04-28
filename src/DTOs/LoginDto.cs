@@ -6,7 +6,7 @@ namespace MadeByMe.src.DTOs
     {
         [Required]
         [EmailAddress]
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

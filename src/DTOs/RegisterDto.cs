@@ -5,11 +5,11 @@ namespace MadeByMe.src.DTOs
     public class RegisterDto
     {
         [Required]
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [EmailAddress]
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
