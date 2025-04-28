@@ -23,25 +23,25 @@ namespace MadeByMe.src.Data
                 new ApplicationUser
                 {
                     Id = userId1,
-                    Name = "admin",
-                    EmailAddress = "admin@example.com",
-                    Password = "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==", // Захешований пароль          
+                    UserName = "admin",
+                    Email = "admin@example.com",
+                    PasswordHash = "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==", // Захешований пароль          
                     ProfilePicture = "/images/admin.jpg"
                 },
                 new ApplicationUser
                 {
                     Id = userId2,
-                    Name = "artist123",
-                    EmailAddress = "artist@example.com",
-                    Password = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
+                    UserName = "artist123",
+                    Email = "artist@example.com",
+                    PasswordHash = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                     ProfilePicture = "/images/artist.jpg"
                 },
                 new ApplicationUser
                 {
                     Id = userId3,
-                    Name = "customer1",
-                    EmailAddress = "customer@example.com",
-                    Password = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
+                    UserName = "customer1",
+                    Email = "customer@example.com",
+                    PasswordHash = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                     ProfilePicture = "/images/customer.jpg"
                 }
             );

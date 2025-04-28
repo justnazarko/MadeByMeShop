@@ -9,11 +9,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MadeByMe.Data.Migrations
+namespace MadeByMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250426174249_FixCommentRelation")]
-    partial class FixCommentRelation
+    [Migration("20250428200903_Identity")]
+    partial class Identity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,11 +41,6 @@ namespace MadeByMe.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
@@ -58,15 +53,6 @@ namespace MadeByMe.Data.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("MobileNumber")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -74,11 +60,6 @@ namespace MadeByMe.Data.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -117,51 +98,51 @@ namespace MadeByMe.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bd901b6c-742d-46ed-b25c-c99fe709d9b8",
+                            Id = "7db40b3f-d1ae-4b78-86af-122990bedef6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "56c477e2-9b74-4d53-8fd6-ae22caba69d3",
-                            EmailAddress = "admin@example.com",
+                            ConcurrencyStamp = "7cd471d4-c426-4921-b7a5-b9f793be6b57",
+                            Email = "admin@example.com",
                             EmailConfirmed = false,
                             IsBlocked = false,
                             LockoutEnabled = false,
-                            Name = "admin",
-                            Password = "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                             PhoneNumberConfirmed = false,
                             ProfilePicture = "/images/admin.jpg",
-                            SecurityStamp = "bdfc89d7-5612-4325-afe6-e4a9323423fa",
-                            TwoFactorEnabled = false
+                            SecurityStamp = "9a5cdc5d-a12b-4478-ae33-eb484eaa6fb0",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
                         },
                         new
                         {
-                            Id = "20f5c6fc-02ea-495a-b367-c894ae104b73",
+                            Id = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "883adbb4-212f-4e49-88f5-6fb4ae56c484",
-                            EmailAddress = "artist@example.com",
+                            ConcurrencyStamp = "badd4a72-962f-4cdc-8131-1f5639a0eff5",
+                            Email = "artist@example.com",
                             EmailConfirmed = false,
                             IsBlocked = false,
                             LockoutEnabled = false,
-                            Name = "artist123",
-                            Password = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                             PhoneNumberConfirmed = false,
                             ProfilePicture = "/images/artist.jpg",
-                            SecurityStamp = "58079de6-5079-46e9-9bbd-641046758313",
-                            TwoFactorEnabled = false
+                            SecurityStamp = "386a2798-1d0e-40b0-8acb-9bcf236207dc",
+                            TwoFactorEnabled = false,
+                            UserName = "artist123"
                         },
                         new
                         {
-                            Id = "405d063f-dd2b-488d-96cc-6223872acbcc",
+                            Id = "373a7281-5e26-499b-b60d-9cdcc45df319",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f3d80ce3-9a33-48dc-8493-77a1f646bff4",
-                            EmailAddress = "customer@example.com",
+                            ConcurrencyStamp = "e7b88cb2-2db7-4a23-94d2-5f8a3fc9b1ae",
+                            Email = "customer@example.com",
                             EmailConfirmed = false,
                             IsBlocked = false,
                             LockoutEnabled = false,
-                            Name = "customer1",
-                            Password = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                             PhoneNumberConfirmed = false,
                             ProfilePicture = "/images/customer.jpg",
-                            SecurityStamp = "84b316b6-1f81-4f6c-b22c-9ace3302d48b",
-                            TwoFactorEnabled = false
+                            SecurityStamp = "a778ea83-340d-4505-bdb0-89b479c4fb28",
+                            TwoFactorEnabled = false,
+                            UserName = "customer1"
                         });
                 });
 
@@ -236,12 +217,12 @@ namespace MadeByMe.Data.Migrations
                         new
                         {
                             CartId = 1,
-                            BuyerId = "405d063f-dd2b-488d-96cc-6223872acbcc"
+                            BuyerId = "373a7281-5e26-499b-b60d-9cdcc45df319"
                         },
                         new
                         {
                             CartId = 2,
-                            BuyerId = "bd901b6c-742d-46ed-b25c-c99fe709d9b8"
+                            BuyerId = "7db40b3f-d1ae-4b78-86af-122990bedef6"
                         });
                 });
 
@@ -299,9 +280,6 @@ namespace MadeByMe.Data.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("PostId1")
-                        .HasColumnType("integer");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -309,8 +287,6 @@ namespace MadeByMe.Data.Migrations
                     b.HasKey("CommentId");
 
                     b.HasIndex("PostId");
-
-                    b.HasIndex("PostId1");
 
                     b.HasIndex("UserId");
 
@@ -321,17 +297,17 @@ namespace MadeByMe.Data.Migrations
                         {
                             CommentId = 1,
                             Content = "Дуже гарна сережка! Якісне виконання.",
-                            CreatedAt = new DateTime(2025, 4, 26, 15, 42, 48, 351, DateTimeKind.Utc).AddTicks(4451),
+                            CreatedAt = new DateTime(2025, 4, 28, 18, 9, 2, 346, DateTimeKind.Utc).AddTicks(4548),
                             PostId = 1,
-                            UserId = "405d063f-dd2b-488d-96cc-6223872acbcc"
+                            UserId = "373a7281-5e26-499b-b60d-9cdcc45df319"
                         },
                         new
                         {
                             CommentId = 2,
                             Content = "Чудова картина, автор - талановитий!",
-                            CreatedAt = new DateTime(2025, 4, 25, 17, 42, 48, 351, DateTimeKind.Utc).AddTicks(4456),
+                            CreatedAt = new DateTime(2025, 4, 27, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4551),
                             PostId = 3,
-                            UserId = "bd901b6c-742d-46ed-b25c-c99fe709d9b8"
+                            UserId = "7db40b3f-d1ae-4b78-86af-122990bedef6"
                         });
                 });
 
@@ -391,12 +367,12 @@ namespace MadeByMe.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2025, 4, 26, 17, 42, 48, 351, DateTimeKind.Utc).AddTicks(4410),
+                            CreatedAt = new DateTime(2025, 4, 28, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4505),
                             Description = "Ручної роботи з натуральним каменем",
                             PhotoLink = "/images/earring1.jpg",
                             Price = 799.99m,
                             Rating = 0.0m,
-                            SellerId = "20f5c6fc-02ea-495a-b367-c894ae104b73",
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
                             Status = "active",
                             Title = "Срібна сережка"
                         },
@@ -404,12 +380,12 @@ namespace MadeByMe.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2025, 4, 21, 17, 42, 48, 351, DateTimeKind.Utc).AddTicks(4414),
+                            CreatedAt = new DateTime(2025, 4, 23, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4510),
                             Description = "Керамічна ваза з українським орнаментом",
                             PhotoLink = "/images/vase.jpg",
                             Price = 1200.50m,
                             Rating = 0.0m,
-                            SellerId = "20f5c6fc-02ea-495a-b367-c894ae104b73",
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
                             Status = "active",
                             Title = "Декоративна ваза"
                         },
@@ -417,12 +393,12 @@ namespace MadeByMe.Data.Migrations
                         {
                             Id = 3,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2025, 4, 16, 17, 42, 48, 351, DateTimeKind.Utc).AddTicks(4423),
+                            CreatedAt = new DateTime(2025, 4, 18, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4518),
                             Description = "Олія на полотні, 40x60 см",
                             PhotoLink = "/images/painting.jpg",
                             Price = 2500.00m,
                             Rating = 0.0m,
-                            SellerId = "20f5c6fc-02ea-495a-b367-c894ae104b73",
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
                             Status = "active",
                             Title = "Картина 'Сонячний день'"
                         });
@@ -430,16 +406,22 @@ namespace MadeByMe.Data.Migrations
 
             modelBuilder.Entity("MadeByMe.src.Models.SellerPost", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("PostId")
-                        .HasColumnType("integer")
-                        .HasColumnName("post_id");
+                        .HasColumnType("integer");
 
                     b.Property<string>("SellerId")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("seller_id");
+                        .HasColumnType("text");
 
-                    b.HasKey("PostId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.HasIndex("SellerId");
 
@@ -448,18 +430,21 @@ namespace MadeByMe.Data.Migrations
                     b.HasData(
                         new
                         {
+                            Id = 1,
                             PostId = 1,
-                            SellerId = "20f5c6fc-02ea-495a-b367-c894ae104b73"
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1"
                         },
                         new
                         {
+                            Id = 2,
                             PostId = 2,
-                            SellerId = "20f5c6fc-02ea-495a-b367-c894ae104b73"
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1"
                         },
                         new
                         {
+                            Id = 3,
                             PostId = 3,
-                            SellerId = "20f5c6fc-02ea-495a-b367-c894ae104b73"
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1"
                         });
                 });
 
@@ -628,14 +613,10 @@ namespace MadeByMe.Data.Migrations
             modelBuilder.Entity("MadeByMe.src.Models.Comment", b =>
                 {
                     b.HasOne("MadeByMe.src.Models.Post", "Post")
-                        .WithMany()
+                        .WithMany("CommentsList")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("MadeByMe.src.Models.Post", null)
-                        .WithMany("CommentsList")
-                        .HasForeignKey("PostId1");
 
                     b.HasOne("MadeByMe.src.Models.ApplicationUser", "User")
                         .WithMany()
@@ -670,15 +651,15 @@ namespace MadeByMe.Data.Migrations
             modelBuilder.Entity("MadeByMe.src.Models.SellerPost", b =>
                 {
                     b.HasOne("MadeByMe.src.Models.Post", "Post")
-                        .WithOne()
-                        .HasForeignKey("MadeByMe.src.Models.SellerPost", "PostId")
+                        .WithMany()
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MadeByMe.src.Models.ApplicationUser", "Seller")
                         .WithMany()
                         .HasForeignKey("SellerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Post");

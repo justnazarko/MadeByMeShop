@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MadeByMe.Data.Migrations
+namespace MadeByMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -38,11 +38,6 @@ namespace MadeByMe.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
@@ -55,15 +50,6 @@ namespace MadeByMe.Data.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("MobileNumber")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
@@ -71,11 +57,6 @@ namespace MadeByMe.Data.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -114,51 +95,51 @@ namespace MadeByMe.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "793f4a21-e802-4e55-8281-3dae3dfe873f",
+                            Id = "7db40b3f-d1ae-4b78-86af-122990bedef6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dc2271c9-35e8-4760-997e-a7bd6b68a5eb",
-                            EmailAddress = "admin@example.com",
+                            ConcurrencyStamp = "7cd471d4-c426-4921-b7a5-b9f793be6b57",
+                            Email = "admin@example.com",
                             EmailConfirmed = false,
                             IsBlocked = false,
                             LockoutEnabled = false,
-                            Name = "admin",
-                            Password = "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                             PhoneNumberConfirmed = false,
                             ProfilePicture = "/images/admin.jpg",
-                            SecurityStamp = "dbad69e6-06d8-43eb-8c4b-da5a3d18ecda",
-                            TwoFactorEnabled = false
+                            SecurityStamp = "9a5cdc5d-a12b-4478-ae33-eb484eaa6fb0",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
                         },
                         new
                         {
-                            Id = "698c6ac5-2ce9-481a-9a28-43d4a2d60de7",
+                            Id = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a65a895c-e9a1-4244-8926-c03ebb9c3420",
-                            EmailAddress = "artist@example.com",
+                            ConcurrencyStamp = "badd4a72-962f-4cdc-8131-1f5639a0eff5",
+                            Email = "artist@example.com",
                             EmailConfirmed = false,
                             IsBlocked = false,
                             LockoutEnabled = false,
-                            Name = "artist123",
-                            Password = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                             PhoneNumberConfirmed = false,
                             ProfilePicture = "/images/artist.jpg",
-                            SecurityStamp = "ea516e89-486f-45db-8f62-f3d2cbac485f",
-                            TwoFactorEnabled = false
+                            SecurityStamp = "386a2798-1d0e-40b0-8acb-9bcf236207dc",
+                            TwoFactorEnabled = false,
+                            UserName = "artist123"
                         },
                         new
                         {
-                            Id = "9721b75d-f5b3-4a0c-a594-53f8c36499c0",
+                            Id = "373a7281-5e26-499b-b60d-9cdcc45df319",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9b1e170e-1e52-4b84-882c-02179015d58f",
-                            EmailAddress = "customer@example.com",
+                            ConcurrencyStamp = "e7b88cb2-2db7-4a23-94d2-5f8a3fc9b1ae",
+                            Email = "customer@example.com",
                             EmailConfirmed = false,
                             IsBlocked = false,
                             LockoutEnabled = false,
-                            Name = "customer1",
-                            Password = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                             PhoneNumberConfirmed = false,
                             ProfilePicture = "/images/customer.jpg",
-                            SecurityStamp = "176ab820-f682-48c8-84d3-8e43c5dbca05",
-                            TwoFactorEnabled = false
+                            SecurityStamp = "a778ea83-340d-4505-bdb0-89b479c4fb28",
+                            TwoFactorEnabled = false,
+                            UserName = "customer1"
                         });
                 });
 
@@ -233,12 +214,12 @@ namespace MadeByMe.Data.Migrations
                         new
                         {
                             CartId = 1,
-                            BuyerId = "9721b75d-f5b3-4a0c-a594-53f8c36499c0"
+                            BuyerId = "373a7281-5e26-499b-b60d-9cdcc45df319"
                         },
                         new
                         {
                             CartId = 2,
-                            BuyerId = "793f4a21-e802-4e55-8281-3dae3dfe873f"
+                            BuyerId = "7db40b3f-d1ae-4b78-86af-122990bedef6"
                         });
                 });
 
@@ -313,17 +294,17 @@ namespace MadeByMe.Data.Migrations
                         {
                             CommentId = 1,
                             Content = "Дуже гарна сережка! Якісне виконання.",
-                            CreatedAt = new DateTime(2025, 4, 26, 16, 29, 7, 385, DateTimeKind.Utc).AddTicks(4662),
+                            CreatedAt = new DateTime(2025, 4, 28, 18, 9, 2, 346, DateTimeKind.Utc).AddTicks(4548),
                             PostId = 1,
-                            UserId = "9721b75d-f5b3-4a0c-a594-53f8c36499c0"
+                            UserId = "373a7281-5e26-499b-b60d-9cdcc45df319"
                         },
                         new
                         {
                             CommentId = 2,
                             Content = "Чудова картина, автор - талановитий!",
-                            CreatedAt = new DateTime(2025, 4, 25, 18, 29, 7, 385, DateTimeKind.Utc).AddTicks(4666),
+                            CreatedAt = new DateTime(2025, 4, 27, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4551),
                             PostId = 3,
-                            UserId = "793f4a21-e802-4e55-8281-3dae3dfe873f"
+                            UserId = "7db40b3f-d1ae-4b78-86af-122990bedef6"
                         });
                 });
 
@@ -383,12 +364,12 @@ namespace MadeByMe.Data.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2025, 4, 26, 18, 29, 7, 385, DateTimeKind.Utc).AddTicks(4615),
+                            CreatedAt = new DateTime(2025, 4, 28, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4505),
                             Description = "Ручної роботи з натуральним каменем",
                             PhotoLink = "/images/earring1.jpg",
                             Price = 799.99m,
                             Rating = 0.0m,
-                            SellerId = "698c6ac5-2ce9-481a-9a28-43d4a2d60de7",
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
                             Status = "active",
                             Title = "Срібна сережка"
                         },
@@ -396,12 +377,12 @@ namespace MadeByMe.Data.Migrations
                         {
                             Id = 2,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2025, 4, 21, 18, 29, 7, 385, DateTimeKind.Utc).AddTicks(4619),
+                            CreatedAt = new DateTime(2025, 4, 23, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4510),
                             Description = "Керамічна ваза з українським орнаментом",
                             PhotoLink = "/images/vase.jpg",
                             Price = 1200.50m,
                             Rating = 0.0m,
-                            SellerId = "698c6ac5-2ce9-481a-9a28-43d4a2d60de7",
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
                             Status = "active",
                             Title = "Декоративна ваза"
                         },
@@ -409,12 +390,12 @@ namespace MadeByMe.Data.Migrations
                         {
                             Id = 3,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2025, 4, 16, 18, 29, 7, 385, DateTimeKind.Utc).AddTicks(4630),
+                            CreatedAt = new DateTime(2025, 4, 18, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4518),
                             Description = "Олія на полотні, 40x60 см",
                             PhotoLink = "/images/painting.jpg",
                             Price = 2500.00m,
                             Rating = 0.0m,
-                            SellerId = "698c6ac5-2ce9-481a-9a28-43d4a2d60de7",
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
                             Status = "active",
                             Title = "Картина 'Сонячний день'"
                         });
@@ -448,19 +429,19 @@ namespace MadeByMe.Data.Migrations
                         {
                             Id = 1,
                             PostId = 1,
-                            SellerId = "698c6ac5-2ce9-481a-9a28-43d4a2d60de7"
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1"
                         },
                         new
                         {
                             Id = 2,
                             PostId = 2,
-                            SellerId = "698c6ac5-2ce9-481a-9a28-43d4a2d60de7"
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1"
                         },
                         new
                         {
                             Id = 3,
                             PostId = 3,
-                            SellerId = "698c6ac5-2ce9-481a-9a28-43d4a2d60de7"
+                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1"
                         });
                 });
 
