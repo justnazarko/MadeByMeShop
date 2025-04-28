@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 using MadeByMe.src.Models;
 using MadeByMe.src.DTOs;
 using MadeByMe.src.Services;
+using Microsoft.AspNetCore.Identity;
 
 public class CommentController : Controller
 {
 	private readonly ApplicationDbContext _context;
 	private readonly CommentService _commentService;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public CommentController(ApplicationDbContext context, CommentService commentService)
-	{
-		_context = context;
-		_commentService = commentService;
-	}
+    public CommentController(ApplicationDbContext context, CommentService commentService, UserManager<ApplicationUser> userManager = null)
+    {
+        _context = context;
+        _commentService = commentService;
+        _userManager = userManager;
+    }
 
-	public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index()
 	{
 		var comments = await _context.Comments.ToListAsync();
 		return View(comments);
@@ -32,18 +35,30 @@ public class CommentController : Controller
 		return View(comment);
 	}
 
-	public IActionResult Create(int postId)
-	{
-		return View(new Comment { PostId = postId });
-	}
+	//public IActionResult Create(int postId)
+	//{
+	//	return View(new Comment { PostId = postId });
+	//}
 
 	[HttpPost]
 	[ValidateAntiForgeryToken]
 	public IActionResult Create(CreateCommentDto dto)
 	{
-		if (!ModelState.IsValid) return View(dto);
+        foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+        {
+            Console.WriteLine(error.ErrorMessage);
+        }
 
-		var comment = _commentService.AddComment(dto);
+
+        if (!ModelState.IsValid)
+		{
+            return View(dto);
+        }
+
+        var userId = _userManager.GetUserId(User);
+        dto.UserId = userId;
+
+        var comment = _commentService.AddComment(dto);
 
 		return RedirectToAction("Details", "Post", new { id = comment.PostId });
 	}

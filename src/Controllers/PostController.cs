@@ -5,17 +5,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MadeByMe.src.Models;
+using MadeByMe.src.ViewModels;
 
 namespace MadeByMe.src.Controllers
 {
     public class PostController : Controller
     {
         private readonly PostService _postService;
+        private readonly CommentService _commentService;
         private readonly ApplicationDbContext _context;
 
-        public PostController(PostService postService, ApplicationDbContext context)
+        public PostController(PostService postService, CommentService commentService, ApplicationDbContext context)
         {
             _postService = postService;
+            _commentService = commentService;
             _context = context;
         }
 
@@ -47,7 +50,15 @@ namespace MadeByMe.src.Controllers
             if (post == null)
                 return NotFound();
 
-            return View(post);
+            var comments = _commentService.GetCommentsForPost(id);
+
+            var viewModel = new PostDetailsViewModel
+            {
+                Post = post,
+                CommentsList = comments
+            };
+
+            return View(viewModel);
         }
 
         [Authorize(Roles = "Seller")]

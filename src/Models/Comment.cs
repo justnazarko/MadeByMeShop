@@ -8,7 +8,6 @@ namespace MadeByMe.src.Models
         [Key]
         public int CommentId { get; set; }
 
-        [Required]
         public string UserId { get; set; }
 
         //[ForeignKey("UserId")]

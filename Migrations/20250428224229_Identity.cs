@@ -180,7 +180,7 @@ namespace MadeByMe.Migrations
                 {
                     CartId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    BuyerId = table.Column<string>(type: "text", nullable: false)
+                    BuyerId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -312,9 +312,9 @@ namespace MadeByMe.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "IsBlocked", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePicture", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "373a7281-5e26-499b-b60d-9cdcc45df319", 0, "e7b88cb2-2db7-4a23-94d2-5f8a3fc9b1ae", "customer@example.com", false, false, false, null, null, null, "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==", null, false, "/images/customer.jpg", "a778ea83-340d-4505-bdb0-89b479c4fb28", false, "customer1" },
-                    { "7db40b3f-d1ae-4b78-86af-122990bedef6", 0, "7cd471d4-c426-4921-b7a5-b9f793be6b57", "admin@example.com", false, false, false, null, null, null, "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==", null, false, "/images/admin.jpg", "9a5cdc5d-a12b-4478-ae33-eb484eaa6fb0", false, "admin" },
-                    { "a7c9ddc0-2525-462e-9378-057f80ec0ad1", 0, "badd4a72-962f-4cdc-8131-1f5639a0eff5", "artist@example.com", false, false, false, null, null, null, "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==", null, false, "/images/artist.jpg", "386a2798-1d0e-40b0-8acb-9bcf236207dc", false, "artist123" }
+                    { "1554b2f5-e8fc-4ade-8f8e-a21fd2b2ed81", 0, "0053949c-e777-4dd5-9b78-f354c86c4de4", "admin@example.com", false, false, false, null, null, null, "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==", null, false, "/images/admin.jpg", "70ce32ff-2423-4b24-a13a-f9ef4aedb8dc", false, "admin" },
+                    { "50004389-6c50-4bb0-9873-e47102bf85e7", 0, "51b97d20-c005-4252-8183-f08f144ec97c", "customer@example.com", false, false, false, null, null, null, "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==", null, false, "/images/customer.jpg", "5bd6abe1-599d-421a-b08d-451e04de2843", false, "customer1" },
+                    { "be1b9ebc-532b-451a-82e5-337b86bf7a3c", 0, "b6b71449-43a3-43f7-9307-1c919bfa9434", "artist@example.com", false, false, false, null, null, null, "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==", null, false, "/images/artist.jpg", "b2382dcd-8765-4444-b1f6-43f90e13e374", false, "artist123" }
                 });
 
             migrationBuilder.InsertData(
@@ -332,8 +332,8 @@ namespace MadeByMe.Migrations
                 columns: new[] { "CartId", "BuyerId" },
                 values: new object[,]
                 {
-                    { 1, "373a7281-5e26-499b-b60d-9cdcc45df319" },
-                    { 2, "7db40b3f-d1ae-4b78-86af-122990bedef6" }
+                    { 1, "50004389-6c50-4bb0-9873-e47102bf85e7" },
+                    { 2, "1554b2f5-e8fc-4ade-8f8e-a21fd2b2ed81" }
                 });
 
             migrationBuilder.InsertData(
@@ -341,9 +341,9 @@ namespace MadeByMe.Migrations
                 columns: new[] { "Id", "CategoryId", "created_at", "Description", "PhotoLink", "Price", "Rating", "SellerId", "Status", "Title" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2025, 4, 28, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4505), "Ручної роботи з натуральним каменем", "/images/earring1.jpg", 799.99m, 0.0m, "a7c9ddc0-2525-462e-9378-057f80ec0ad1", "active", "Срібна сережка" },
-                    { 2, 2, new DateTime(2025, 4, 23, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4510), "Керамічна ваза з українським орнаментом", "/images/vase.jpg", 1200.50m, 0.0m, "a7c9ddc0-2525-462e-9378-057f80ec0ad1", "active", "Декоративна ваза" },
-                    { 3, 3, new DateTime(2025, 4, 18, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4518), "Олія на полотні, 40x60 см", "/images/painting.jpg", 2500.00m, 0.0m, "a7c9ddc0-2525-462e-9378-057f80ec0ad1", "active", "Картина 'Сонячний день'" }
+                    { 1, 1, new DateTime(2025, 4, 28, 22, 42, 28, 721, DateTimeKind.Utc).AddTicks(3622), "Ручної роботи з натуральним каменем", "/images/earring1.jpg", 799.99m, 0.0m, "be1b9ebc-532b-451a-82e5-337b86bf7a3c", "active", "Срібна сережка" },
+                    { 2, 2, new DateTime(2025, 4, 23, 22, 42, 28, 721, DateTimeKind.Utc).AddTicks(3625), "Керамічна ваза з українським орнаментом", "/images/vase.jpg", 1200.50m, 0.0m, "be1b9ebc-532b-451a-82e5-337b86bf7a3c", "active", "Декоративна ваза" },
+                    { 3, 3, new DateTime(2025, 4, 18, 22, 42, 28, 721, DateTimeKind.Utc).AddTicks(3631), "Олія на полотні, 40x60 см", "/images/painting.jpg", 2500.00m, 0.0m, "be1b9ebc-532b-451a-82e5-337b86bf7a3c", "active", "Картина 'Сонячний день'" }
                 });
 
             migrationBuilder.InsertData(
@@ -361,8 +361,8 @@ namespace MadeByMe.Migrations
                 columns: new[] { "CommentId", "Content", "created_at", "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Дуже гарна сережка! Якісне виконання.", new DateTime(2025, 4, 28, 18, 9, 2, 346, DateTimeKind.Utc).AddTicks(4548), 1, "373a7281-5e26-499b-b60d-9cdcc45df319" },
-                    { 2, "Чудова картина, автор - талановитий!", new DateTime(2025, 4, 27, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4551), 3, "7db40b3f-d1ae-4b78-86af-122990bedef6" }
+                    { 1, "Дуже гарна сережка! Якісне виконання.", new DateTime(2025, 4, 28, 20, 42, 28, 721, DateTimeKind.Utc).AddTicks(3675), 1, "50004389-6c50-4bb0-9873-e47102bf85e7" },
+                    { 2, "Чудова картина, автор - талановитий!", new DateTime(2025, 4, 27, 22, 42, 28, 721, DateTimeKind.Utc).AddTicks(3677), 3, "1554b2f5-e8fc-4ade-8f8e-a21fd2b2ed81" }
                 });
 
             migrationBuilder.InsertData(
@@ -370,9 +370,9 @@ namespace MadeByMe.Migrations
                 columns: new[] { "Id", "PostId", "SellerId" },
                 values: new object[,]
                 {
-                    { 1, 1, "a7c9ddc0-2525-462e-9378-057f80ec0ad1" },
-                    { 2, 2, "a7c9ddc0-2525-462e-9378-057f80ec0ad1" },
-                    { 3, 3, "a7c9ddc0-2525-462e-9378-057f80ec0ad1" }
+                    { 1, 1, "be1b9ebc-532b-451a-82e5-337b86bf7a3c" },
+                    { 2, 2, "be1b9ebc-532b-451a-82e5-337b86bf7a3c" },
+                    { 3, 3, "be1b9ebc-532b-451a-82e5-337b86bf7a3c" }
                 });
 
             migrationBuilder.CreateIndex(

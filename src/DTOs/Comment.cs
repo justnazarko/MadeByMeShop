@@ -8,12 +8,11 @@ namespace MadeByMe.src.DTOs
 		public int PostId { get; set; }
 
 		[Required]
-		public string UserId { get; set; }
-
-		[Required]
 		[MaxLength(1000)]
 		public string Content { get; set; }
-	}
+
+        public string UserId { get; set; }
+    }
 
 	public class CommentResponseDto
 	{

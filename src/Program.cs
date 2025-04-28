@@ -57,23 +57,32 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
+
+
 
 var app = builder.Build();
 
 async Task SeedRoles(IServiceProvider serviceProvider)
 {
-var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-string[] roles = { "User", "Seller", "Admin" };
+    string[] roles = { "User", "Seller", "Admin" };
 
-foreach (var role in roles)
-{
-if (!await roleManager.RoleExistsAsync(role))
-{
-await roleManager.CreateAsync(new IdentityRole(role));
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            {
+            await roleManager.CreateAsync(new IdentityRole(role));
+            }
+    }
 }
-}
-}
+
 
 
 // 5. Обробка міграцій
@@ -117,6 +126,12 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.Run();
 
-await SeedRoles(app.Services);
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SeedRoles(services);
+}
+
+
+app.Run();

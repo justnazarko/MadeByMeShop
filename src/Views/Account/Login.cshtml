@@ -7,6 +7,7 @@
 <h2>Вхід</h2>
 
 <form asp-action="Login" method="post">
+    @Html.AntiForgeryToken()
     <div class="form-group">
         <label asp-for="Email"></label>
         <input asp-for="Email" class="form-control" />
@@ -20,4 +21,10 @@
     </div>
 
     <button type="submit" class="btn btn-success">Увійти</button>
+    @* <a asp-controller="Post" asp-action="Index" class="btn btn-success">Увійти</a> *@
 </form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

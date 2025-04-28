@@ -8,10 +8,10 @@ namespace MadeByMe.src.Models
         [Key]
         public int CartId { get; set; }
 
-        public string BuyerId { get; set; }
+        public string? BuyerId { get; set; }
 
         [ForeignKey("BuyerId")]
-        public ApplicationUser Buyer { get; set; }
+        public ApplicationUser? Buyer { get; set; }
 
         // Додати колекцію для зв'язку
         public ICollection<BuyerCart> BuyerCarts { get; set; } = new List<BuyerCart>();

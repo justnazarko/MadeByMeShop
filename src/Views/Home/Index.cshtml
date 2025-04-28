@@ -12,6 +12,22 @@
 }
 else
 {
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p><a asp-controller="Account" asp-action="Profile">Профіль</a></p>
+        <form asp-action="BecomeSeller" asp-controller="Account" method="post">
+            <button type="submit" class="btn btn-warning">Стати продавцем</button>
+        </form>
+        <form asp-action="Logout" method="post">
+            <button type="submit" class="btn btn-danger">Вийти</button>
+        </form>
+    }
+    else
+    {
+        <p><a asp-controller="Account" asp-action="Login">Увійти</a></p>
+        <p><a asp-controller="Account" asp-action="Register">Зареєструватися</a></p>
+    }
+    
     <div class="post-list">
         @foreach (var post in Model)
         {

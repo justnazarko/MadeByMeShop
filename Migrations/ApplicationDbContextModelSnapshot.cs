@@ -95,9 +95,9 @@ namespace MadeByMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7db40b3f-d1ae-4b78-86af-122990bedef6",
+                            Id = "1554b2f5-e8fc-4ade-8f8e-a21fd2b2ed81",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7cd471d4-c426-4921-b7a5-b9f793be6b57",
+                            ConcurrencyStamp = "0053949c-e777-4dd5-9b78-f354c86c4de4",
                             Email = "admin@example.com",
                             EmailConfirmed = false,
                             IsBlocked = false,
@@ -105,15 +105,15 @@ namespace MadeByMe.Migrations
                             PasswordHash = "AQAAAAIAAYagAAAAEEZ6hGJ4hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                             PhoneNumberConfirmed = false,
                             ProfilePicture = "/images/admin.jpg",
-                            SecurityStamp = "9a5cdc5d-a12b-4478-ae33-eb484eaa6fb0",
+                            SecurityStamp = "70ce32ff-2423-4b24-a13a-f9ef4aedb8dc",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
                         new
                         {
-                            Id = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
+                            Id = "be1b9ebc-532b-451a-82e5-337b86bf7a3c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "badd4a72-962f-4cdc-8131-1f5639a0eff5",
+                            ConcurrencyStamp = "b6b71449-43a3-43f7-9307-1c919bfa9434",
                             Email = "artist@example.com",
                             EmailConfirmed = false,
                             IsBlocked = false,
@@ -121,15 +121,15 @@ namespace MadeByMe.Migrations
                             PasswordHash = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                             PhoneNumberConfirmed = false,
                             ProfilePicture = "/images/artist.jpg",
-                            SecurityStamp = "386a2798-1d0e-40b0-8acb-9bcf236207dc",
+                            SecurityStamp = "b2382dcd-8765-4444-b1f6-43f90e13e374",
                             TwoFactorEnabled = false,
                             UserName = "artist123"
                         },
                         new
                         {
-                            Id = "373a7281-5e26-499b-b60d-9cdcc45df319",
+                            Id = "50004389-6c50-4bb0-9873-e47102bf85e7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e7b88cb2-2db7-4a23-94d2-5f8a3fc9b1ae",
+                            ConcurrencyStamp = "51b97d20-c005-4252-8183-f08f144ec97c",
                             Email = "customer@example.com",
                             EmailConfirmed = false,
                             IsBlocked = false,
@@ -137,7 +137,7 @@ namespace MadeByMe.Migrations
                             PasswordHash = "AQAAAAIAAYagAAAAEFz7Oj7hQz2b6J6B2VZqk1vRkXlY7TJi+W7Xq3X9kKJ9pL3h8pZ1Xy9jW8w1g==",
                             PhoneNumberConfirmed = false,
                             ProfilePicture = "/images/customer.jpg",
-                            SecurityStamp = "a778ea83-340d-4505-bdb0-89b479c4fb28",
+                            SecurityStamp = "5bd6abe1-599d-421a-b08d-451e04de2843",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         });
@@ -201,7 +201,6 @@ namespace MadeByMe.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CartId"));
 
                     b.Property<string>("BuyerId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("CartId");
@@ -214,12 +213,12 @@ namespace MadeByMe.Migrations
                         new
                         {
                             CartId = 1,
-                            BuyerId = "373a7281-5e26-499b-b60d-9cdcc45df319"
+                            BuyerId = "50004389-6c50-4bb0-9873-e47102bf85e7"
                         },
                         new
                         {
                             CartId = 2,
-                            BuyerId = "7db40b3f-d1ae-4b78-86af-122990bedef6"
+                            BuyerId = "1554b2f5-e8fc-4ade-8f8e-a21fd2b2ed81"
                         });
                 });
 
@@ -294,17 +293,17 @@ namespace MadeByMe.Migrations
                         {
                             CommentId = 1,
                             Content = "Дуже гарна сережка! Якісне виконання.",
-                            CreatedAt = new DateTime(2025, 4, 28, 18, 9, 2, 346, DateTimeKind.Utc).AddTicks(4548),
+                            CreatedAt = new DateTime(2025, 4, 28, 20, 42, 28, 721, DateTimeKind.Utc).AddTicks(3675),
                             PostId = 1,
-                            UserId = "373a7281-5e26-499b-b60d-9cdcc45df319"
+                            UserId = "50004389-6c50-4bb0-9873-e47102bf85e7"
                         },
                         new
                         {
                             CommentId = 2,
                             Content = "Чудова картина, автор - талановитий!",
-                            CreatedAt = new DateTime(2025, 4, 27, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4551),
+                            CreatedAt = new DateTime(2025, 4, 27, 22, 42, 28, 721, DateTimeKind.Utc).AddTicks(3677),
                             PostId = 3,
-                            UserId = "7db40b3f-d1ae-4b78-86af-122990bedef6"
+                            UserId = "1554b2f5-e8fc-4ade-8f8e-a21fd2b2ed81"
                         });
                 });
 
@@ -364,12 +363,12 @@ namespace MadeByMe.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedAt = new DateTime(2025, 4, 28, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4505),
+                            CreatedAt = new DateTime(2025, 4, 28, 22, 42, 28, 721, DateTimeKind.Utc).AddTicks(3622),
                             Description = "Ручної роботи з натуральним каменем",
                             PhotoLink = "/images/earring1.jpg",
                             Price = 799.99m,
                             Rating = 0.0m,
-                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
+                            SellerId = "be1b9ebc-532b-451a-82e5-337b86bf7a3c",
                             Status = "active",
                             Title = "Срібна сережка"
                         },
@@ -377,12 +376,12 @@ namespace MadeByMe.Migrations
                         {
                             Id = 2,
                             CategoryId = 2,
-                            CreatedAt = new DateTime(2025, 4, 23, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4510),
+                            CreatedAt = new DateTime(2025, 4, 23, 22, 42, 28, 721, DateTimeKind.Utc).AddTicks(3625),
                             Description = "Керамічна ваза з українським орнаментом",
                             PhotoLink = "/images/vase.jpg",
                             Price = 1200.50m,
                             Rating = 0.0m,
-                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
+                            SellerId = "be1b9ebc-532b-451a-82e5-337b86bf7a3c",
                             Status = "active",
                             Title = "Декоративна ваза"
                         },
@@ -390,12 +389,12 @@ namespace MadeByMe.Migrations
                         {
                             Id = 3,
                             CategoryId = 3,
-                            CreatedAt = new DateTime(2025, 4, 18, 20, 9, 2, 346, DateTimeKind.Utc).AddTicks(4518),
+                            CreatedAt = new DateTime(2025, 4, 18, 22, 42, 28, 721, DateTimeKind.Utc).AddTicks(3631),
                             Description = "Олія на полотні, 40x60 см",
                             PhotoLink = "/images/painting.jpg",
                             Price = 2500.00m,
                             Rating = 0.0m,
-                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1",
+                            SellerId = "be1b9ebc-532b-451a-82e5-337b86bf7a3c",
                             Status = "active",
                             Title = "Картина 'Сонячний день'"
                         });
@@ -429,19 +428,19 @@ namespace MadeByMe.Migrations
                         {
                             Id = 1,
                             PostId = 1,
-                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1"
+                            SellerId = "be1b9ebc-532b-451a-82e5-337b86bf7a3c"
                         },
                         new
                         {
                             Id = 2,
                             PostId = 2,
-                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1"
+                            SellerId = "be1b9ebc-532b-451a-82e5-337b86bf7a3c"
                         },
                         new
                         {
                             Id = 3,
                             PostId = 3,
-                            SellerId = "a7c9ddc0-2525-462e-9378-057f80ec0ad1"
+                            SellerId = "be1b9ebc-532b-451a-82e5-337b86bf7a3c"
                         });
                 });
 
@@ -601,8 +600,7 @@ namespace MadeByMe.Migrations
                     b.HasOne("MadeByMe.src.Models.ApplicationUser", "Buyer")
                         .WithMany()
                         .HasForeignKey("BuyerId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Buyer");
                 });

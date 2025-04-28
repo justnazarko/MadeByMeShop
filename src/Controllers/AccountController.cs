@@ -65,7 +65,14 @@ namespace MadeByMe.src.Controllers
             if (!ModelState.IsValid)
                 return View(dto);
 
-            var result = await _signInManager.PasswordSignInAsync(dto.Email, dto.Password, false, false);
+            var user = await _userManager.FindByEmailAsync(dto.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Невірна електронна пошта або пароль");
+                return View(dto);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, dto.Password, false, false);
 
             if (result.Succeeded)
                 return RedirectToAction("Index", "Home");
@@ -81,7 +88,7 @@ namespace MadeByMe.src.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize(Roles = "User, Seller")]
+        [Authorize]
         public IActionResult Profile()
         {
             var user = _userManager.GetUserAsync(User);
@@ -91,7 +98,7 @@ namespace MadeByMe.src.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "User, Seller")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult UpdateProfile(UpdateProfileDto dto)
@@ -112,7 +119,28 @@ namespace MadeByMe.src.Controllers
             return RedirectToAction(nameof(Profile));
         }
 
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> BecomeSeller()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (!await _userManager.IsInRoleAsync(user, "Seller"))
+            {
+                await _userManager.AddToRoleAsync(user, "Seller");
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 
