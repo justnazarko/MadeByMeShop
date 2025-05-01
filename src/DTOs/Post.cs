@@ -23,8 +23,7 @@ namespace MadeByMe.src.DTOs
         [Required]
         public int CategoryId { get; set; }
 
-        [Required]
-        public string SellerId { get; set; }
+        //public string SellerId { get; set; }
     }
 
     public class UpdatePostDto

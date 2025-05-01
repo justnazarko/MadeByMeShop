@@ -49,16 +49,14 @@ public class CommentController : Controller
             Console.WriteLine(error.ErrorMessage);
         }
 
-
         if (!ModelState.IsValid)
 		{
             return View(dto);
         }
 
         var userId = _userManager.GetUserId(User);
-        dto.UserId = userId;
 
-        var comment = _commentService.AddComment(dto);
+        var comment = _commentService.AddComment(dto, userId);
 
 		return RedirectToAction("Details", "Post", new { id = comment.PostId });
 	}

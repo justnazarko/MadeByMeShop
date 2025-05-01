@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MadeByMe.src.Models;
 using MadeByMe.src.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace MadeByMe.src.Controllers
 {
@@ -14,12 +15,14 @@ namespace MadeByMe.src.Controllers
         private readonly PostService _postService;
         private readonly CommentService _commentService;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PostController(PostService postService, CommentService commentService, ApplicationDbContext context)
+        public PostController(PostService postService, CommentService commentService, ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _postService = postService;
             _commentService = commentService;
             _context = context;
+            _userManager = userManager;
         }
 
 
@@ -80,11 +83,27 @@ namespace MadeByMe.src.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreatePostDto createPostDto)
         {
-            if (!ModelState.IsValid)
-                return View(createPostDto);
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
 
-            _postService.CreatePost(createPostDto);
-            
+            if (!ModelState.IsValid)
+            {
+                var categories = _context.Categories.Select(c => new SelectListItem
+                {
+                    Value = c.CategoryId.ToString(),
+                    Text = c.Name
+                })
+        .ToList();
+
+                ViewBag.Categories = categories;
+                return View(createPostDto);
+            }
+
+            var userId = _userManager.GetUserId(User);
+            _postService.CreatePost(createPostDto, userId);
+  
             return RedirectToAction(nameof(Index));
         }
 

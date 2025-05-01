@@ -32,7 +32,7 @@ namespace MadeByMe.src.Services
                 .FirstOrDefault(p => p.Id == id);
         }
 
-        public Post CreatePost(CreatePostDto createPostDto)
+        public Post CreatePost(CreatePostDto createPostDto, string sellerId)
         {
             var post = new Post
             {
@@ -41,7 +41,7 @@ namespace MadeByMe.src.Services
                 Price = createPostDto.Price,
                 PhotoLink = createPostDto.PhotoLink,
                 CategoryId = createPostDto.CategoryId,
-                SellerId = createPostDto.SellerId
+                SellerId = sellerId
             };
 
             _context.Posts.Add(post);

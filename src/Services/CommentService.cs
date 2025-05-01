@@ -34,11 +34,11 @@ namespace MadeByMe.src.Services
         }
 
 
-        public Comment AddComment(CreateCommentDto dto)
+        public Comment AddComment(CreateCommentDto dto, string userId)
 		{
 			var comment = new Comment
 			{
-				UserId = dto.UserId,
+				UserId = userId,
 				PostId = dto.PostId,
 				Content = dto.Content
 			};
