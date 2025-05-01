@@ -15,7 +15,7 @@ namespace MadeByMe.src.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public ApplicationUser UpdateUser(int userId, UpdateProfileDto dto)
+        public ApplicationUser UpdateUser(string userId, UpdateProfileDto dto)
         {
             var user = _context.Users.Find(userId);
             if (user != null)
@@ -23,6 +23,7 @@ namespace MadeByMe.src.Services
                 user.UserName = dto.UserName ?? user.UserName;
                 user.Email = dto.Email ?? user.Email;
                 user.ProfilePicture = dto.ProfilePicture ?? user.ProfilePicture;
+                user.PhoneNumber = dto.PhoneNumber ?? user.PhoneNumber;
                 _context.SaveChanges();
             }
             return user;

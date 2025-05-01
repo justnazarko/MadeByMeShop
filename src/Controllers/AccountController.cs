@@ -89,9 +89,11 @@ namespace MadeByMe.src.Controllers
         }
 
         [Authorize]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            var user = _userManager.GetUserAsync(User);
+            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.FindByIdAsync(userId);
+
             if (user == null)
                 return RedirectToAction(nameof(Login));
 
@@ -99,14 +101,35 @@ namespace MadeByMe.src.Controllers
         }
 
         [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> EditProfile()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+                return RedirectToAction(nameof(Login));
+
+            var dto = new UpdateProfileDto
+            {
+                UserId = currentUser.Id,
+                Email = currentUser.Email,
+                UserName = currentUser.UserName,
+                PhoneNumber = currentUser.PhoneNumber,
+                
+                
+            };
+
+            return View(dto);
+        }
+
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult UpdateProfile(UpdateProfileDto dto)
+        public async Task<IActionResult> EditProfile(UpdateProfileDto dto)
         {
             if (!ModelState.IsValid)
-                return View("Profile", dto);
+                return View("EditProfile", dto);
 
-            var currentUser = _userManager.GetUserAsync(User);
+            var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null)
                 return RedirectToAction(nameof(Login));
 
@@ -118,6 +141,7 @@ namespace MadeByMe.src.Controllers
 
             return RedirectToAction(nameof(Profile));
         }
+
 
         public IActionResult AccessDenied()
         {

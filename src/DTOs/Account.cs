@@ -5,8 +5,7 @@ namespace MadeByMe.src.DTOs
 {
     public class UpdateProfileDto
     {
-        [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         [Required]
         public string UserName { get; set; }
 
