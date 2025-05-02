@@ -25,6 +25,7 @@ namespace MadeByMe.src.Services
 		public Category GetCategoryById(int id)
 		{
 			return _context.Categories
+				.Include(c => c.Name)
 				.Include(c => c.Posts)
 				.FirstOrDefault(c => c.CategoryId == id);
 		}
@@ -59,7 +60,7 @@ namespace MadeByMe.src.Services
 			}
 			return false;
 		}
-        public bool RemoveCategory(int id)
+        public bool RemoveCategory(int id) //?
         {
             var category = _context.Categories.Find(id);
             if (category != null)

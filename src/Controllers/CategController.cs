@@ -49,8 +49,7 @@ namespace MadeByMe.src.Controllers
 
             var updateDto = new UpdateCategoryDto
             {
-                Name = category.Name,
-                Description = ""  // Видалити або додати поле Description в модель Category
+                Name = category.Name
             };
             return View(updateDto);
         }
