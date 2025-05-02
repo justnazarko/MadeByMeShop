@@ -62,20 +62,36 @@ namespace MadeByMe.src.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto dto)
         {
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+            Console.WriteLine("ModelState.IsValid: " + ModelState.IsValid);
+            Console.WriteLine("Email: " + dto.Email);
+            Console.WriteLine("Password: " + dto.Password);
+
+
             if (!ModelState.IsValid)
                 return View(dto);
 
             var user = await _userManager.FindByEmailAsync(dto.Email);
+            Console.WriteLine("User found: " + (user != null));
+
             if (user == null)
             {
                 ModelState.AddModelError("", "Невірна електронна пошта або пароль");
                 return View(dto);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user.UserName, dto.Password, false, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
 
+            Console.WriteLine("SignIn success: " + result.Succeeded);
             if (result.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToAction("Index", "Home");
+            }
+               
 
             ModelState.AddModelError("", "Невірна електронна пошта або пароль");
             return View(dto);
