@@ -37,6 +37,13 @@ else
                 <p><strong>Автор:</strong> @post.SellerName</p>
                 <p><strong>Дата:</strong> @post.CreatedAt.ToShortDateString()</p>
                 <a href="@Url.Action("Details", "Post", new { id = post.Id })">Детальніше</a>
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="PostId" value="@post.Id" />
+                    <input type="hidden" name="Quantity" value="1" />
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-cart-plus"></i> Додати до кошика
+                    </button>
+                </form>
             </div>
         }
     </div>

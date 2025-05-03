@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
     <header class="p-3 bg-light border-bottom">
@@ -16,6 +17,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <a asp-controller="Account" asp-action="Profile" class="btn btn-outline-primary me-2">Профіль</a>
+                    <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-primary me-2">Кошик</a>
                     <form asp-controller="Account" asp-action="BecomeSeller" method="post" class="d-inline">
                         <button type="submit" class="btn btn-warning me-2">Стати продавцем</button>
                     </form>

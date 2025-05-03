@@ -29,9 +29,13 @@
                     </div>
                     <div class="card-footer bg-transparent">
                         <a asp-action="Details" asp-route-id="@post.Id" class="btn btn-outline-primary">Деталі</a>
-                        <a asp-controller="Cart" asp-action="AddPost" asp-route-postId="@post.Id" class="btn btn-outline-success">
-                            <i class="fas fa-cart-plus"></i> В кошик
-                        </a>
+                        <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                            <input type="hidden" name="PostId" value="@post.Id" />
+                            <input type="hidden" name="Quantity" value="1" />
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-cart-plus"></i> Додати до кошика
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

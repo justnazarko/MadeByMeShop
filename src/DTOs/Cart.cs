@@ -4,8 +4,6 @@ namespace MadeByMe.src.DTOs
 {
     public class AddToCartDto
     {
-        [Required]
-        public string UserId { get; set; }
 
         [Required]
         public int PostId { get; set; }

@@ -3,103 +3,91 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using MadeByMe.src.Models;
+using MadeByMe.src.Services;
+using MadeByMe.src.DTOs;
+using Microsoft.AspNetCore.Identity;
 
 public class CartController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly CartService _cartService;
+    private readonly BuyerCartService _buyerCartService;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public CartController(ApplicationDbContext context)
+    public CartController(CartService cartService, BuyerCartService buyerCartService, UserManager<ApplicationUser> userManager)
     {
-        _context = context;
+
+        _cartService = cartService;
+        _buyerCartService = buyerCartService;
+        _userManager = userManager;
+    }
+
+    public IActionResult Index()
+    {
+        var buyerId = _userManager.GetUserId(User);
+        var cartViewModel = _cartService.GetUserCart(buyerId);
+
+        return View(cartViewModel);
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddPost(string buyerId, int postId)
+    [ValidateAntiForgeryToken]
+    public IActionResult AddToCart(AddToCartDto dto)
     {
-        var post = await _context.Posts.FindAsync(postId);
-        if (post == null) return NotFound();
+        var buyerId = _userManager.GetUserId(User);
 
-        var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
+        var result = _buyerCartService.AddToCart(buyerId, dto);
+        if (!result)
+        {
+            return BadRequest("Помилка при додаванні товару");
+        }
+
+        return RedirectToAction("Index", new { buyerId });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult RemoveFromCart(int postId)
+    {
+        var buyerId = _userManager.GetUserId(User);
+
+        var result = _buyerCartService.RemoveFromCart(buyerId, postId);
+        if (!result)
+        {
+            return NotFound();
+        }
+
+        return RedirectToAction("Index", new { buyerId });
+    }
+
+
+    public IActionResult GetTotalPrice()
+    {
+        var buyerId = _userManager.GetUserId(User);
+
+        var cart = _cartService.GetUserCartEntity(buyerId);
         if (cart == null)
         {
-            cart = new Cart { BuyerId = buyerId };
-            _context.Carts.Add(cart);
-            await _context.SaveChangesAsync();
+            return NotFound();
         }
 
-        var cartItem = await _context.BuyerCarts
-            .FirstOrDefaultAsync(bc => bc.CartId == cart.CartId && bc.PostId == postId);
-
-        if (cartItem != null)
-        {
-            cartItem.Quantity += 1;
-        }
-        else
-        {
-            _context.BuyerCarts.Add(new BuyerCart
-            {
-                CartId = cart.CartId,
-                PostId = postId,
-                Quantity = 1
-            });
-        }
-
-        await _context.SaveChangesAsync();
-        return RedirectToAction("Index", new { buyerId });
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> RemovePost(string buyerId, int postId)
-    {
-        var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
-        if (cart == null) return NotFound();
-
-        var cartItem = await _context.BuyerCarts
-            .FirstOrDefaultAsync(bc => bc.CartId == cart.CartId && bc.PostId == postId);
-
-        if (cartItem == null) return NotFound();
-
-        _context.BuyerCarts.Remove(cartItem);
-        await _context.SaveChangesAsync();
-
-        return RedirectToAction("Index", new { buyerId });
-    }
-
-    public async Task<IActionResult> GetTotalPrice(string buyerId)
-    {
-        var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
-        if (cart == null) return NotFound();
-
-        var total = await _context.BuyerCarts
-            .Where(bc => bc.CartId == cart.CartId)
-            .SumAsync(bc => bc.Quantity * _context.Posts
-                .Where(p => p.Id == bc.PostId)
-                .Select(p => p.Price)
-                .FirstOrDefault());
-
+        var total = _cartService.GetCartTotal(cart.CartId);
         return View("CartTotal", total);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Checkout(string buyerId)
+    public IActionResult Checkout()
     {
-        var cart = await _context.Carts.FirstOrDefaultAsync(c => c.BuyerId == buyerId);
-        if (cart == null || !await _context.BuyerCarts.AnyAsync(bc => bc.CartId == cart.CartId))
+        var buyerId = _userManager.GetUserId(User);
+
+        var cart = _cartService.GetUserCartEntity(buyerId);
+        if (cart == null || !cart.BuyerCarts.Any())
+        {
             return View("EmptyCartError");
+        }
 
-        _context.BuyerCarts.RemoveRange(_context.BuyerCarts.Where(bc => bc.CartId == cart.CartId));
-        await _context.SaveChangesAsync();
-
+        _cartService.ClearCart(cart.CartId);
         return View("CheckoutSuccess");
     }
 
-    public async Task<IActionResult> Index(string buyerId)
-    {
-        var cart = await _context.Carts
-            .Include(c => c.BuyerCarts)
-            .ThenInclude(bc => bc.Post)
-            .FirstOrDefaultAsync(c => c.BuyerId == buyerId);
-
-        return View(cart);
-    }
+   
 }

@@ -16,12 +16,12 @@ namespace MadeByMe.src.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult AddToCart(AddToCartDto addToCartDto)
+		public IActionResult AddToCart(AddToCartDto addToCartDto, string buyerId)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest();
 
-			var result = _buyerCartService.AddToCart(addToCartDto);
+			var result = _buyerCartService.AddToCart(buyerId, addToCartDto);
 			return Ok(result);
 		}
 	}

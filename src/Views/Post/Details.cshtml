@@ -19,10 +19,13 @@
             <p>@Model.Post.Description</p>
 
             <div class="mt-4">
-                <a asp-controller="Cart" asp-action="AddPost" asp-route-postId="@Model.Post.Id"
-                   class="btn btn-primary btn-lg">
-                    <i class="fas fa-cart-plus"></i> Додати до кошика
-                </a>
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="PostId" value="@Model.Post.Id" />
+                    <input type="hidden" name="Quantity" value="1" />
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-cart-plus"></i> Додати до кошика
+                    </button>
+                </form>
                 <a asp-action="Index" class="btn btn-outline-secondary">Назад до каталогу</a>
                 <a asp-action="Edit" asp-route-id="@Model.Post.Id" class="btn btn-outline-secondary">Редагувати пост</a>
                 <a asp-action="Delete" asp-route-id="@Model.Post.Id" class="btn btn-outline-secondary">Видалити пост</a>
@@ -30,26 +33,7 @@
         </div>
     </div>
 
-    <!-- Коментарі -->
-   @*  <div class="row mt-5">
-        <div class="col-12">
-            <h3>Коментарі</h3>
-            @await Component.InvokeAsync("Comments", new { postId = Model.Id })
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                <partial name="_AddComment" model="new MadeByMe.src.DTOs.CreateCommentDto { PostId = Model.Id }" />
-            }
-            else
-            {
-                <div class="alert alert-info">
-                    Будь ласка, <a asp-controller="User" asp-action="Login">увійдіть</a>, щоб залишити коментар.
-                </div>
-            }
-        </div>
-    </div> *@
-
-
+   
     <h2>Коментарі:</h2>
 
     @if (Model.CommentsList != null && Model.CommentsList.Any())

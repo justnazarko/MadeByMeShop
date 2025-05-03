@@ -1,12 +1,14 @@
 ﻿using MadeByMe.src.DTOs;
 using MadeByMe.src.Models;
+using MadeByMe.src.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MadeByMe.src.Services
 {
-    public class CartService
+    public class CartService //читання і підготовка даних для відображення кошика:
+                             //список товарів, кількість, ціна за одиницю, загальна сума
     {
         private readonly ApplicationDbContext _context;
 
@@ -15,59 +17,49 @@ namespace MadeByMe.src.Services
             _context = context;
         }
 
-        public Cart GetUserCart(string userId)
+        public Cart GetUserCartEntity(string buyerId)
         {
             return _context.Carts
                 .Include(c => c.BuyerCarts)
                 .ThenInclude(bc => bc.Post)
-                .FirstOrDefault(c => c.BuyerId == userId);
+                .FirstOrDefault(c => c.BuyerId == buyerId);
         }
 
-        public Cart AddToCart(AddToCartDto dto)
+        public CartViewModel GetUserCart(string buyerId)
         {
-            var cart = _context.Carts.FirstOrDefault(c => c.BuyerId == dto.UserId);
-            if (cart == null)
-            {
-                cart = new Cart { BuyerId = dto.UserId };
-                _context.Carts.Add(cart);
-                _context.SaveChanges();
-            }
+            var cart =  _context.Carts
+                .Include(c => c.BuyerCarts)
+                .ThenInclude(bc => bc.Post)
+                .FirstOrDefault(c => c.BuyerId == buyerId);
 
-            var existingItem = _context.BuyerCarts
-                .FirstOrDefault(bc => bc.CartId == cart.CartId && bc.PostId == dto.PostId);
-
-            if (existingItem != null)
+            if (cart == null || !cart.BuyerCarts.Any())
             {
-                existingItem.Quantity += dto.Quantity;
-            }
-            else
-            {
-                var cartItem = new BuyerCart
+                return new CartViewModel
                 {
-                    CartId = cart.CartId,
-                    PostId = dto.PostId,
-                    Quantity = dto.Quantity
+                    Items = new List<CartItemViewModel>(),
+                    TotalPrice = 0
                 };
-                _context.BuyerCarts.Add(cartItem);
             }
 
-            _context.SaveChanges();
-            return cart;
-        }
-
-        public bool RemoveFromCart(int cartItemId)
-        {
-            var item = _context.BuyerCarts.Find(cartItemId);
-            if (item != null)
+            var items = cart.BuyerCarts.Select(bc => new CartItemViewModel
             {
-                _context.BuyerCarts.Remove(item);
-                _context.SaveChanges();
-                return true;
-            }
-            return false;
+                PostId = bc.PostId,
+                Title = bc.Post.Title,
+                PricePerItem = bc.Post.Price,
+                Quantity = bc.Quantity,
+                Total = bc.Quantity * bc.Post.Price
+            }).ToList();
+
+            var total = items.Sum(i => i.Total);
+
+            return new CartViewModel
+            {
+                Items = items,
+                TotalPrice = total
+            };
         }
 
-        public decimal GetCartTotal(int cartId)
+        public decimal GetCartTotal(int cartId) 
         {
             return _context.BuyerCarts
                 .Where(bc => bc.CartId == cartId)
