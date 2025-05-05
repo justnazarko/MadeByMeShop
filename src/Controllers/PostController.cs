@@ -47,7 +47,7 @@ namespace MadeByMe.src.Controllers
             return View(postsList);
         }
 
-        public IActionResult Details(int id) //після додавання Авторизації відредагувати посилання на кошик, коментарі
+        public IActionResult Details(int id) 
         {
             var post = _postService.GetPostById(id);
             if (post == null)
@@ -114,6 +114,10 @@ namespace MadeByMe.src.Controllers
             if (post == null)
                 return NotFound();
 
+            var currentUserId = _userManager.GetUserId(User); 
+            if (post.SellerId != currentUserId)
+                return Forbid();
+
             var updateDto = new UpdatePostDto
             {
                 Title = post.Title,
@@ -156,6 +160,10 @@ namespace MadeByMe.src.Controllers
             var post = _postService.GetPostById(id);
             if (post == null)
                 return NotFound();
+
+            var currentUserId = _userManager.GetUserId(User);
+            if (post.SellerId != currentUserId)
+                return Forbid();
 
             return View(post);
         }

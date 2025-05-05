@@ -23,13 +23,11 @@ namespace MadeByMe.src.Services
 				.ToList();
 		}
 
-		public Comment GetCommentById(int id)
-		{
-			return _context.Comments
-				.Include(c => c.User)
-				.Include(c => c.Post)
-				.Include(c => c.Content)
-				.Include(c => c.CreatedAt)
+        public Comment GetCommentById(int id)
+        {
+            return _context.Comments
+                .Include(c => c.User)
+                .Include(c => c.Post)
                 .FirstOrDefault(c => c.CommentId == id);
         }
 
