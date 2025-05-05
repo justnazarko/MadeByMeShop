@@ -18,9 +18,14 @@
                 {
                     <a asp-controller="Account" asp-action="Profile" class="btn btn-outline-primary me-2">Профіль</a>
                     <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-primary me-2">Кошик</a>
-                    <form asp-controller="Account" asp-action="BecomeSeller" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-warning me-2">Стати продавцем</button>
-                    </form>
+
+                    @if (!User.IsInRole("Seller"))
+                    {
+                        <form asp-controller="Account" asp-action="BecomeSeller" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-warning me-2">Стати продавцем</button>
+                        </form>
+                    }
+                   
                     <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
                         <button type="submit" class="btn btn-danger">Вийти</button>
                     </form>
@@ -35,6 +40,25 @@
     </header>
     <p>IsAuthenticated: @User.Identity.IsAuthenticated</p>
     <p>UserName: @User.Identity.Name</p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (User.IsInRole("Admin"))
+        {
+            <p>Роль: Admin</p>
+        }
+        else if (User.IsInRole("Seller"))
+        {
+            <p>Роль: Seller</p>
+        }
+        else
+        {
+            <p>Роль: Покупець</p>
+        }
+    }
+    else
+    {
+        <p>Неавторизований користувач</p>
+    }
 
 
     <main class="container my-4">

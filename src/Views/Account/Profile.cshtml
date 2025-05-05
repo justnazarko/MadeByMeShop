@@ -14,22 +14,27 @@
         <dt class="col-sm-3">Ім’я</dt>
         <dd class="col-sm-9">@Model.UserName</dd>
 
-        <dt class="col-sm-3">Email</dt>
+        <dt class="col-sm-3">Електронна пошта</dt>
         <dd class="col-sm-9">@Model.Email</dd>
+
+        <dt class="col-sm-3">Номер мобільного</dt>
+        <dd class="col-sm-9">@Model.PhoneNumber</dd>
     </dl>
 
     <a asp-action="EditProfile" asp-controller="Account" class="btn btn-primary">Редагувати профіль</a>
 
     @if (User.IsInRole("Seller"))
     {
-        <p class="mt-2 text-success">Ваша роль: Продавець</p>
+        <p>Ви продавець!</p>
     }
     else
     {
-        <form method="post" asp-action="BecomeSeller" asp-controller="Account">
-            <button type="submit" class="btn btn-warning mt-2">Стати продавцем</button>
+        <form asp-action="BecomeSeller" method="post">
+            <button type="submit" class="btn btn-warning">Стати продавцем</button>
         </form>
     }
+
+
 </div>
 
 

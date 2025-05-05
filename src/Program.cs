@@ -2,6 +2,7 @@
 using MadeByMe.src.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -74,6 +75,13 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 
 var app = builder.Build();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "src/wwwroot")),
+    RequestPath = ""
+});
 
 async Task SeedRoles(IServiceProvider serviceProvider)
 {

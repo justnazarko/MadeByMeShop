@@ -8,19 +8,24 @@ namespace MadeByMe.src.DTOs
     {
         [Required(ErrorMessage = "Поле 'Назва' є обов'язковим")]
         [MaxLength(100)]
+        [Display(Name = "Заголовок")]
         public string Title { get; set; }
 
+        [Display(Name = "Опис")]
         public string Description { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(10, 2)")]
+        [Display(Name = "Ціна")]
         public decimal Price { get; set; }
 
         [Required]
         [MaxLength(255)]
+        [Display(Name = "Фото")]
         public string PhotoLink { get; set; }
 
         [Required]
+        [Display(Name = "Категорія")]
         public int CategoryId { get; set; }
 
         //public string SellerId { get; set; }
@@ -29,16 +34,21 @@ namespace MadeByMe.src.DTOs
     public class UpdatePostDto
     {
         [MaxLength(100)]
+        [Display(Name = "Заголовок")]
         public string? Title { get; set; }
 
+        [Display(Name = "Опис")]
         public string? Description { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
+        [Display(Name = "Ціна")]
         public decimal? Price { get; set; }
 
         [MaxLength(255)]
+        [Display(Name = "Фото")]
         public string? PhotoLink { get; set; }
 
+        [Display(Name = "Категорія")]
         public int? CategoryId { get; set; }
     }
 

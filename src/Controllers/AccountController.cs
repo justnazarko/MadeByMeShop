@@ -4,6 +4,7 @@ using MadeByMe.src.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace MadeByMe.src.Controllers
 {
@@ -36,7 +37,8 @@ namespace MadeByMe.src.Controllers
             var user = new ApplicationUser
             {
                 UserName = dto.UserName,
-                Email = dto.Email
+                Email = dto.Email,
+                PhoneNumber = dto.PhoneNumber
                
             };
 
@@ -168,18 +170,46 @@ namespace MadeByMe.src.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> BecomeSeller()
         {
+            //var user = await _userManager.GetUserAsync(User);
+            //if (user == null)
+            //{
+            //    return RedirectToAction("Login", "Account");
+            //}
+            //var role_f = await _userManager.GetRolesAsync(user);
+            //foreach (var role in role_f)
+            //{
+            //    Console.WriteLine($"Роль користувача: {role}");
+            //}
+
+            //if (!await _userManager.IsInRoleAsync(user, "Seller"))
+            //{
+            //    Console.WriteLine("ПОчаток циклу\n");
+            //    await _userManager.AddToRoleAsync(user, "Seller");
+            //    await _signInManager.RefreshSignInAsync(user);
+
+            //    var roles = await _userManager.GetRolesAsync(user);
+            //    foreach (var role in roles)
+            //    {
+            //        Console.WriteLine($"Роль користувача: {role}");
+            //    }
+
+            //}
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return RedirectToAction("Login", "Account");
             }
 
-            if (!await _userManager.IsInRoleAsync(user, "Seller"))
+            var roles = await _userManager.GetRolesAsync(user);
+            if (!roles.Contains("Seller"))
             {
                 await _userManager.AddToRoleAsync(user, "Seller");
             }
 
-            return RedirectToAction("Index", "Home");
+            await _signInManager.RefreshSignInAsync(user);
+
+            return RedirectToAction("Profile", "Account");
         }
 
     }
