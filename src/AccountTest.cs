@@ -377,3 +377,7 @@ namespace MadeByMe.Tests.Controllers
             Assert.NotNull(result);
             Assert.AreEqual("EditProfile", result.ViewName);
             Assert.AreEqual(dto, result.Model);
+
+        }
+    }
+}
