@@ -21,7 +21,7 @@ namespace MadeByMe.Tests.Controllers
         private Mock<UserManager<ApplicationUser>> _userManagerMock;
         private CartController _controller;
 
-        // Допоміжний метод для створення мок-UserManager
+      
         private static Mock<UserManager<ApplicationUser>> GetUserManagerMock()
         {
             var store = new Mock<IUserStore<ApplicationUser>>();
@@ -32,17 +32,17 @@ namespace MadeByMe.Tests.Controllers
         [SetUp]
         public void Setup()
         {
-            // Arrange: Ініціалізуємо мок-об’єкти та контролер
+            // Arrange
             _cartServiceMock = new Mock<CartService>();
             _buyerCartServiceMock = new Mock<BuyerCartService>();
             _userManagerMock = GetUserManagerMock();
 
-            // Налаштовуємо UserManager, щоб завжди повертати "buyer123" як ідентифікатор користувача
+           
             _userManagerMock.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("buyer123");
 
             _controller = new CartController(_cartServiceMock.Object, _buyerCartServiceMock.Object, _userManagerMock.Object);
 
-            // Створюємо фейкового користувача з NameIdentifier = "buyer123" та встановлюємо ControllerContext
+           
             var user = new ClaimsPrincipal(new ClaimsIdentity(new[] {
                 new Claim(ClaimTypes.NameIdentifier, "buyer123")
             }, "TestAuth"));
