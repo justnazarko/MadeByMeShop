@@ -80,10 +80,10 @@ var app = builder.Build();
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "src/wwwroot")),
+    FileProvider = new PhysicalFileProvider(builder.Environment.WebRootPath),
     RequestPath = ""
 });
+
 
 async Task SeedRoles(IServiceProvider serviceProvider)
 {
