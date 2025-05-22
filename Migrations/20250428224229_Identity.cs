@@ -322,9 +322,12 @@ namespace MadeByMe.Migrations
                 columns: new[] { "CategoryId", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Handmade Jewelry" },
-                    { 2, "Home Decor" },
-                    { 3, "Art" }
+                    { 1, "Прикраси ручної роботи" },
+                    { 2, "Декор для дому" },
+                    { 3, "Мистецтво" },
+                    { 4, "Одяг та аксесуари" },
+                    { 5, "Іграшки" },
+                    { 6, "Кераміка" }
                 });
 
             migrationBuilder.InsertData(

@@ -9,9 +9,9 @@
 <body class="bg-gray-50 text-gray-800">
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-10">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="/" class="text-2xl font-bold text-orange-700 hover:text-orange-800 transition-colors">MadeByMe</a>
-            <nav class="space-x-4">
+            <nav class="flex items-center flex-wrap justify-end gap-x-3 gap-y-2">
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Seller"))
                 {
                     <a href="/Post/Create" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-orange-100 hover:bg-orange-200 transition-colors duration-200" title="Додати товар">
@@ -118,7 +118,7 @@
         ViewData["Title"] = "Home Page";
     }
 
-    <div class="bg-white">
+    <div class="bg-white p-6 mt-8 mb-8 rounded-lg shadow-lg border border-gray-200">
         <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
             <div class="sm:flex sm:items-baseline sm:justify-between">
                 <h2 class="text-2xl font-bold tracking-tight text-gray-900">Популярні товари</h2>

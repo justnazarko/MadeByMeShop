@@ -78,10 +78,26 @@ builder.Services.AddDirectoryBrowser();
 
 var app = builder.Build();
 
+// Ensure wwwroot directory exists
+var wwwrootPath = Path.Combine(builder.Environment.ContentRootPath, "wwwroot");
+if (!Directory.Exists(wwwrootPath))
+{
+    Directory.CreateDirectory(wwwrootPath);
+}
+
+// Ensure images directory exists
+var imagesPath = Path.Combine(wwwrootPath, "images");
+if (!Directory.Exists(imagesPath))
+{
+    Directory.CreateDirectory(imagesPath);
+}
+
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(builder.Environment.WebRootPath),
-    RequestPath = ""
+    FileProvider = new PhysicalFileProvider(wwwrootPath),
+    RequestPath = "",
+    ServeUnknownFileTypes = true,
+    DefaultContentType = "application/octet-stream"
 });
 
 
