@@ -2,51 +2,57 @@
     var currentYear = DateTime.Now.Year;
 }
 
-<footer class="footer mt-auto py-4 bg-light">
+<footer class="footer mt-auto py-3 bg-light">
     <div class="container">
-        <div class="row">
-            <div class="col-md-3 mb-3">
-                <h5>Про нас</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration-none text-dark">Історія компанії</a></li>
-                    <li><a href="#" class="text-decoration-none text-dark">Наші цінності</a></li>
-                    <li><a href="#" class="text-decoration-none text-dark">Кар'єра</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 mb-3">
-                <h5>Клієнтам</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration-none text-dark">Доставка</a></li>
-                    <li><a href="#" class="text-decoration-none text-dark">Оплата</a></li>
-                    <li><a href="#" class="text-decoration-none text-dark">Повернення товару</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 mb-3">
-                <h5>Контакти</h5>
-                <ul class="list-unstyled">
-                    <li><i class="fas fa-phone me-2"></i>+380 XX XXX XX XX</li>
-                    <li><i class="fas fa-envelope me-2"></i>info@madebyme.com</li>
-                    <li><i class="fas fa-map-marker-alt me-2"></i>м. Київ, вул. Прикладна, 1</li>
-                </ul>
-            </div>
-            <div class="col-md-3 mb-3">
-                <h5>Слідкуйте за нами</h5>
-                <div class="social-links">
-                    <a href="#" class="text-dark me-2"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-dark me-2"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-dark me-2"><i class="fab fa-telegram"></i></a>
-                </div>
-            </div>
-        </div>
-        <hr class="my-4">
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-md-6 text-center text-md-start">
                 <p class="mb-0">&copy; @currentYear MadeByMe. Всі права захищені.</p>
             </div>
             <div class="col-md-6 text-center text-md-end">
-                <a href="#" class="text-decoration-none text-dark me-3">Політика конфіденційності</a>
-                <a href="#" class="text-decoration-none text-dark">Умови використання</a>
+                <a href="#" class="text-decoration-none text-dark me-3 hover-effect">Політика конфіденційності</a>
+                <a href="#" class="text-decoration-none text-dark hover-effect">Умови використання</a>
             </div>
         </div>
     </div>
-</footer> 
+</footer>
+
+<style>
+    .footer {
+        border-top: 1px solid #e9ecef;
+        background-color: #f8f9fa !important;
+    }
+    
+    .footer p {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    .footer a {
+        color: #6c757d !important;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+    
+    .footer a:hover {
+        color: #343a40 !important;
+    }
+    
+    .hover-effect {
+        position: relative;
+    }
+    
+    .hover-effect:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: #343a40;
+        transition: width 0.3s ease;
+    }
+    
+    .hover-effect:hover:after {
+        width: 100%;
+    }
+</style> 
