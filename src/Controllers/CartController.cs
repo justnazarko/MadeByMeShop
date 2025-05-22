@@ -15,7 +15,6 @@ public class CartController : Controller
 
     public CartController(CartService cartService, BuyerCartService buyerCartService, UserManager<ApplicationUser> userManager)
     {
-
         _cartService = cartService;
         _buyerCartService = buyerCartService;
         _userManager = userManager;
@@ -59,6 +58,36 @@ public class CartController : Controller
         return RedirectToAction("Index", new { buyerId });
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult UpdateQuantity(int productId, string action)
+    {
+        var buyerId = _userManager.GetUserId(User);
+        var cart = _cartService.GetUserCartEntity(buyerId);
+        
+        if (cart == null)
+        {
+            return NotFound();
+        }
+
+        var cartItem = cart.BuyerCarts.FirstOrDefault(bc => bc.PostId == productId);
+        if (cartItem == null)
+        {
+            return NotFound();
+        }
+
+        if (action == "increase")
+        {
+            cartItem.Quantity++;
+        }
+        else if (action == "decrease" && cartItem.Quantity > 1)
+        {
+            cartItem.Quantity--;
+        }
+
+        _cartService.UpdateCartItem(cartItem);
+        return RedirectToAction("Index");
+    }
 
     public IActionResult GetTotalPrice()
     {
@@ -88,6 +117,4 @@ public class CartController : Controller
         _cartService.ClearCart(cart.CartId);
         return View("CheckoutSuccess");
     }
-
-   
 }

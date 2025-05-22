@@ -32,6 +32,9 @@ namespace MadeByMe.src.Services
                 .Include(c => c.BuyerCarts)
                 .ThenInclude(bc => bc.Post)
                 .ThenInclude(p => p.Seller)
+                .Include(c => c.BuyerCarts)
+                .ThenInclude(bc => bc.Post)
+                .ThenInclude(p => p.Photos)
                 .FirstOrDefault(c => c.BuyerId == buyerId);
 
             if (cart == null || !cart.BuyerCarts.Any())
@@ -78,6 +81,12 @@ namespace MadeByMe.src.Services
         {
             var items = _context.BuyerCarts.Where(i => i.CartId == cartId);
             _context.BuyerCarts.RemoveRange(items);
+            _context.SaveChanges();
+        }
+
+        public void UpdateCartItem(BuyerCart cartItem)
+        {
+            _context.BuyerCarts.Update(cartItem);
             _context.SaveChanges();
         }
     }
