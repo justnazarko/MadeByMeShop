@@ -117,4 +117,19 @@ public class CartController : Controller
         _cartService.ClearCart(cart.CartId);
         return View("CheckoutSuccess");
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult ClearCart()
+    {
+        var buyerId = _userManager.GetUserId(User);
+        var cart = _cartService.GetUserCartEntity(buyerId);
+        
+        if (cart != null)
+        {
+            _cartService.ClearCart(cart.CartId);
+        }
+        
+        return Ok();
+    }
 }
