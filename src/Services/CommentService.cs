@@ -22,6 +22,7 @@ namespace MadeByMe.src.Services
 				.Include(c => c.User)
 				.ToList();
 		}
+		
 
         public Comment GetCommentById(int id)
         {
@@ -45,6 +46,7 @@ namespace MadeByMe.src.Services
 			_context.SaveChanges();
 			return comment;
 		}
+
 
 		public bool DeleteComment(int id)
 		{

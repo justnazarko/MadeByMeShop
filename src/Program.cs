@@ -14,6 +14,7 @@ if (string.IsNullOrEmpty(connectionString))
     throw new InvalidOperationException("Connection string 'DefaultConnection' not found in configuration");
 }
 
+
 // 2. Налаштування DbContext з ретраями
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -33,6 +34,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     }
 });
 
+
 builder.Services.AddControllersWithViews()
     .AddRazorOptions(options =>
     {
@@ -51,6 +53,7 @@ builder.Services.AddScoped<CommentService>();
 builder.Services.AddScoped<CartService>();
 builder.Services.AddScoped<BuyerCartService>();
 builder.Services.AddScoped<PhotoService>();
+
 
 // 4. Додаткові сервіси
 //builder.Services.AddControllersWithViews();
@@ -72,6 +75,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
+
 
 // Add static files middleware
 builder.Services.AddDirectoryBrowser();

@@ -35,6 +35,7 @@ public class CommentController : Controller
 		return View(comment);
 	}
 
+	//TODO: add create comment view
 	//public IActionResult Create(int postId)
 	//{
 	//	return View(new Comment { PostId = postId });
