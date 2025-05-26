@@ -23,7 +23,7 @@ namespace MadeByMe.src.Services
                 Directory.CreateDirectory(_uploadPath);
             }
 
-            // Ensure the directory has write permissions
+            // Перевірка наявності доступу до директорії
             var directoryInfo = new DirectoryInfo(_uploadPath);
             var security = directoryInfo.GetAccessControl();
             security.AddAccessRule(

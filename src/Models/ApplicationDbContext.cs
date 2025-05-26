@@ -28,6 +28,8 @@ namespace MadeByMe.src.Models
             // Налаштування зв'язків та обмежень
 
             //// Налаштування зв'язків
+
+            //TODO: add SellerPost table
             //modelBuilder.Entity<SellerPost>()
             //    .HasKey(sp => new { sp.SellerId, sp.PostId });
 
